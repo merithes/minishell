@@ -13,11 +13,12 @@
 #ifndef HMINI_H
 # define HMINI_H
 
+# include <sys/stat.h>
+# include <sys/param.h>
+# include <sys/wait.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
-# include <sys/stat.h>
-# include <sys/param.h>
 # include <dirent.h>
 # include <time.h>
 # include <grp.h>
@@ -30,6 +31,10 @@
 */
 
 # define EXIT 55
+# define N_ENV "Environment received empty. Creating a new one."
+# define MONE 0x001
+# define MTWO 0x010
+# define MFOU 0x100
 
 /*
 ** /!\SYSTEM DEPENDANT /!\
@@ -58,9 +63,10 @@
 
 typedef struct				s_env
 {
-	char					*orig;
+	char					*full;
 	char					*name;
 	char					*cont;
+	int						allc;
 	struct s_env			*next;
 }							t_env;
 

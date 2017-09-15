@@ -39,7 +39,7 @@ int					main(int ac, char *av[], char *env_o[])
 	(void)ac;
 	(void)av;
 	env = translate_env(env_o);
-	pcat(get_env_var(PS1));
+	pcat(get_env_var("PS1"));
 	while (get_next_line(0, &cli))
 	{
 		exec_cli(cli, env);

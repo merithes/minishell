@@ -74,12 +74,18 @@ typedef struct				s_env
 ** ============================================================================
 */
 
-t_env						*translate_env(char *env[], int type);
-char						**rmk_env(t_env *inp);
-t_env						*init_env(void);
-t_env						*get_env_var(char *str, t_env *list);
+
 void						write_prompt(t_env *env);
-char						*get_cut_env(char *inp, int type);
 int							getpath(char *cmd, t_env *env, char *fullpath);
+void						cd_bin(char **tab, t_env *env);
+
+void						edit_var_content(t_env *elem, char *cont);
+char						**rmk_env(t_env *inp);
+
+t_env						*translate_env(char *env[], int type);
+t_env						*init_env(void);
+
+t_env						*get_env_var(char *to_search, t_env *list);
+char						*get_cut_env(char *inp, int type);
 
 #endif

@@ -29,3 +29,24 @@ t_env				*get_env_var(char *to_search, t_env *list)
 			return (list);
 	return (NULL);
 }
+
+void				edit_var_content(t_env *elem, char *cont)
+{
+	int				len;
+
+	if (!cont)
+	{
+		len = ft_strlen(elem->cont);
+		free(elem->cont);
+		ft_bzero(strrchr(elem->full, '=') + 1, len);
+	}
+	(elem->cont) ? free(elem->cont) : 1;
+	elem->cont = ft_strdup(cont);
+	(elem->full) ? free(elem->full) : 1;
+	len = (ft_strlen(elem->name) + ft_strlen(elem->cont) + 2);
+	elem->full = malloc(len);
+	ft_bzero(elem->full, len);
+	ft_strcat(elem->full, elem->name);
+	ft_strcat(elem->full, "=");
+	ft_strcat(elem->full, elem->cont);
+}

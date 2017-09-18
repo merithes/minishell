@@ -15,7 +15,7 @@
 int					exec_cli(char *cli, t_env *i_env)
 {
 	pid_t			pid;
-	char			*fullpath;
+	char			fullpath[MAXPATHLEN + 1];
 	char			**tab;
 	char			**env;
 
@@ -23,12 +23,12 @@ int					exec_cli(char *cli, t_env *i_env)
 	tab = ft_strsplitw(cli);
 	pid = fork();
 	env = rmk_env(i_env);
-	if (pid == 0 && builtin_chk(tab, cli))
-		execve(fullpath = mkpath(tab[0], i_env), tab, env);
+	if (pid == 0/* && builtin_chk(tab, cli)*/)
+		if (!(getpath(tab[0], i_env, fullpath)))
+			execve(fullpath, tab, env);
 	wait(NULL);
 	free_rec_char(tab);
 	(env) ? free(env) : 1;
-	(fullpath) ? free(fullpath) : 1;
 	write_prompt(i_env);
 	return (0);
 }

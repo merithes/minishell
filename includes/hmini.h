@@ -80,5 +80,6 @@ t_env						*init_env(void);
 t_env						*get_env_var(char *str, t_env *list);
 void						write_prompt(t_env *env);
 char						*get_cut_env(char *inp, int type);
+int							getpath(char *cmd, t_env *env, char *fullpath);
 
 #endif

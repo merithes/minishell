@@ -31,34 +31,33 @@
 */
 
 # define EXIT 55
-# define N_ENV "Environment received empty. Creating a new one."
+# define N_ENV "Environment received empty. Creating a new one.\n"
 # define MONE 0x001
 # define MTWO 0x010
 # define MFOU 0x100
 
 /*
 ** /!\SYSTEM DEPENDANT /!\
-** =======================
+** ============================================================================
 */
 
 /*
 ** MACs
-** ====
+** ============================================================================
 */
 
 /*
 ** ARCH
-** ====
+** ============================================================================
 */
 
 /*
 ** MACROS
-** ======
+** ============================================================================
 */
 
 /*
 ** TYPEDEFS
-** ========
 */
 
 typedef struct				s_env
@@ -72,10 +71,14 @@ typedef struct				s_env
 
 /*
 ** DECLARATIONS
-** ============
+** ============================================================================
 */
 
-t_env						*translate_env(char *env[]);
+t_env						*translate_env(char *env[], int type);
 char						**rmk_env(t_env *inp);
+t_env						*init_env(void);
+t_env						*get_env_var(char *str, t_env *list);
+void						write_prompt(t_env *env);
+char						*get_cut_env(char *inp, int type);
 
 #endif

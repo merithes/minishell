@@ -17,7 +17,7 @@ FLAGS		= -Wall -Werror -Wextra
 COMP		= gcc
 LIBFT		= -Llibft -lft
 
-SRCS 		= main.c env.c
+SRCS 		= main.c env.c init_env.c getenv.c prompt.c
 DIR_SRC		= $(addprefix $(SRCPATH)/, $(SRCS))
 SRCPATH		= src
 

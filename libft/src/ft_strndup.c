@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/04 19:12:22 by vboivin           #+#    #+#             */
-/*   Updated: 2017/07/26 11:43:33 by vboivin          ###   ########.fr       */
+/*   Created: 2016/12/06 19:39:55 by vboivin           #+#    #+#             */
+/*   Updated: 2016/12/11 18:39:15 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlen(const char *str)
+char	*ft_strndup(char *s1, int qty)
 {
-	int		i;
+	int		j;
+	char	*s2;
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
+	if (!(s2 = malloc(sizeof(char) * (qty + 1))))
+		return (NULL);
+	ft_bzero(s2, qty);
+	j = -1;
+	while (++j < qty)
+		s2[j] = s1[j];
+	s2[j] = '\0';
+	return (s2);
 }

@@ -70,6 +70,7 @@ char				**ft_strsplit(char const *s, char c);
 char				**ft_strsplitw(char const *s);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+char				*ft_strndup(char *inp, int c);
 
 void				ft_putchar(char c);
 void				ft_putstr(char *str);
@@ -92,6 +93,7 @@ void				ft_foreach(int *tab, int length, void (*f)(int));
 void				ft_swap(int *a, int *b);
 unsigned int		ft_intlen(int nb);
 long int			ft_lintlen(long int nb);
+void				ft_push_error(int inp);
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);

@@ -51,22 +51,23 @@ t_env				*mkenv(char *inp)
 	if (!(outp = malloc(sizeof(t_env))))
 		return (NULL);
 	outp->next = NULL;
-	outp->orig = ft_strdup(inp);
+	outp->full = ft_strdup(inp);
 	outp->name = getname_env(inp);
 	outp->cont = ft_strdup(strrchr(inp, '=') + 1);
 	return (outp);
 }
 
-t_env				*translate_env(char *env_o[])
+t_env				*translate_env(char **env_o, int type)
 {
 	t_env			*env;
 	t_env			*cursor;
 	int				i;
 
-	if (!env_o)
+	type++;
+	if (!env_o[0])
 		return(init_env());
 	i = 0;
-	if(!(env = mkenv(env_o[i])))
+	if (!(env = mkenv(env_o[i])))
 		return (NULL);
 	cursor = env;
 	while (env_o[++i])
@@ -75,7 +76,6 @@ t_env				*translate_env(char *env_o[])
 			return (NULL);
 		cursor = cursor->next;
 	}
-	printf("he\n");
 	return (env);
 }
 
@@ -90,7 +90,7 @@ char				**rmk_env(t_env *elist)
 		return (NULL);
 	while (elist)
 	{
-		outp[++i[0]] = elist->orig;
+		outp[++i[0]] = elist->full;
 		elist = elist->next;
 	}
 	return (outp);

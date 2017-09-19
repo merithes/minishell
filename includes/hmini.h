@@ -77,6 +77,8 @@ typedef struct				s_env
 
 void						write_prompt(t_env *env);
 int							getpath(char *cmd, t_env *env, char *fullpath);
+
+int							builtin_chk(char **tab, char *cmd, t_env *env);
 void						cd_bin(char **tab, t_env *env);
 
 void						edit_var_content(t_env *elem, char *cont);

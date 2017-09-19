@@ -22,13 +22,15 @@ int					exec_cli(char *cli, t_env *i_env)
 	(void)env;
 	tab = ft_strsplitw(cli);
 	pid = fork();
-	env = rmk_env(i_env);
-	if (pid == 0 && builtin_chk(tab, cli, i_env))
+	if (pid == 0 && !builtin_chk(tab, i_env))
 		if (!(getpath(tab[0], i_env, fullpath)))
+		{
+			env = rmk_env(i_env);
 			execve(fullpath, tab, env);
+			(env) ? free(env) : 1;
+		}
 	wait(NULL);
 	free_rec_char(tab);
-	(env) ? free(env) : 1;
 	write_prompt(i_env);
 	return (0);
 }

@@ -12,9 +12,9 @@
 
 #include "hmini.h"
 
-t_env			*creat_var(char *name, char *cont, char *full, int allc)
+t_env				*creat_var(char *name, char *cont, char *full, int allc)
 {
-	t_env		*outp;
+	t_env			*outp;
 
 	if ((!name) && full)
 		name = get_cut_env(full, 0);
@@ -22,8 +22,8 @@ t_env			*creat_var(char *name, char *cont, char *full, int allc)
 		cont = get_cut_env(full, 1);
 	if (!(outp = malloc(sizeof(t_env *))))
 		return (NULL);
-	outp->name = (allc & MONE) ? ft_strdup(name) : name;
-	outp->cont = (allc & MTWO) ? ft_strdup(cont) : cont;
+	outp->name = (allc & MONE) ? name : ft_strdup(name);
+	outp->cont = (allc & MTWO) ? cont : ft_strdup(cont);
 	if (allc & MFOU && !name && !cont)
 		outp->full = full;
 	else
@@ -33,16 +33,15 @@ t_env			*creat_var(char *name, char *cont, char *full, int allc)
 		ft_strcat(outp->full, "=");
 		ft_strcat(outp->full, outp->cont);
 	}
-	outp->allc = allc;
 	outp->next = NULL;
 	return (outp);
 }
 
-t_env			*init_env(void)
+t_env				*init_env(void)
 {
-	t_env		*env;
-	t_env		*cursor;
-	char		*temp;
+	t_env			*env;
+	t_env			*cursor;
+	char			*temp;
 
 	ft_putstr(N_ENV);
 	temp = getcwd(NULL, 0);
@@ -54,7 +53,20 @@ t_env			*init_env(void)
 	if (!(cursor->next = creat_var("OLDPWD", NULL, env->full, 0))) 
 		ft_push_error(1);
 	cursor = cursor->next;
-	if (!(cursor->next = creat_var("SHLVL", "1", 0, 1))) 
+	if (!(cursor->next = creat_var("SHLVL", "1", 0, 0))) 
 		ft_push_error(1);
 	return (env);
+}
+
+t_env				*new_var(t_env *root, char *name, char *cont, int allc)
+{
+	t_env			*outp;
+	t_env			*cursor;
+
+	outp = creat_var(name, cont, NULL, allc);
+	cursor = root;
+	while (cursor->next)
+		cursor = cursor->next;
+	cursor->next = outp;
+	return (outp);
 }

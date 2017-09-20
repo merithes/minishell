@@ -17,15 +17,13 @@ void				cd_bin(char **tab, t_env *env)
 		c_pwd = tmp ? tmp : new_var(env, "PWD", cwd, 0);
 		tmp = get_env_var("OLDPWD", env);
 //		printf("gere1\n");
-		tmp = get_env_var("PWD", env);
 		o_pwd = tmp ? tmp : new_var(env, "OLDPWD", cwd, 0);
 //		printf("gere2\n");
-		tmp = get_env_var("PWD", env);
 //		printf("gere3\n");
 		edit_var_content(o_pwd, c_pwd->cont);
 //		printf("gere4\n");
 		edit_var_content(c_pwd, cwd);
+		cwd ? free(cwd) : 1;
 //		printf("gere5\n");
-		tmp = get_env_var("PWD", env);
 	}
 }

@@ -52,6 +52,8 @@ int					builtin_chk(char **tab, t_env *env)
 	int				wit;
 
 	wit = 0;
+	if (!tab[0])
+		return (0);
 	(!ft_strncmp("cd", tab[0], 3)) ? (wit++, cd_bin(tab, env)) : 1;
 	(!ft_strncmp("env", tab[0], 4)) ? (wit++, env_bin(tab, env)) : 1;
 /*	

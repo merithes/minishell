@@ -6,9 +6,7 @@ void				cd_bin(char **tab, t_env *env)
 	t_env			*o_pwd;
 	t_env			*tmp;
 	char			*cwd;
-//	t_env *tam;
 	
-//	tam = env;while(tam){printf("TEST\n%s\n\t%s\n\t\t%s\n", tam->name, tam->cont, tam->full);tam=tam->next;}
 	if (chdir(tab[1]) < 0)
 		perror(NULL);
 	else
@@ -32,5 +30,4 @@ void				cd_bin(char **tab, t_env *env)
 //		printf("gere5\n");
 		tmp = get_env_var("PWD", env);
 	}
-//	tam = env;while(tam){printf("TEST2\n%s\n\t%s\n\t\t%s\n", tam->name, tam->cont, tam->full);tam=tam->next;}
 }

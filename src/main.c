@@ -14,21 +14,28 @@
 
 int					exec_cli(char *cli, t_env *i_env)
 {
-	pid_t			pid;
 	char			fullpath[MAXPATHLEN + 1];
 	char			**tab;
 	char			**env;
+	int				bin;
 
-	(void)env;
 	tab = ft_strsplitw(cli);
-	pid = fork();
-	if (pid == 0 && !builtin_chk(tab, i_env))
+	bin = builtin_chk(tab, i_env);
+	printf("waiiiitwat\n");
+	if (!fork() && !bin)
+	{
+		printf("wat_\n");
 		if (!(getpath(tab[0], i_env, fullpath)))
 		{
+			printf("wat\n");
 			env = rmk_env(i_env);
+			printf("wat1\n");
 			execve(fullpath, tab, env);
-			(env) ? free(env) : 1;
+			printf("wat2\n");
+			printf("wat3\n");
 		}
+		printf("wat_2\n");
+	}
 	wait(NULL);
 	free_rec_char(tab);
 	write_prompt(i_env);
@@ -46,6 +53,7 @@ int					main(int ac, char **av, char **env_o)
 	write_prompt(env);
 	while (get_next_line(0, &cli))
 	{
+		printf("exxing\n");
 		exec_cli(cli, env);
 		free(cli);
 	}

@@ -19,8 +19,6 @@ void				cd_bin(char **tab, t_env *env)
 //		printf("gere1\n");
 		tmp = get_env_var("PWD", env);
 		o_pwd = tmp ? tmp : new_var(env, "OLDPWD", cwd, 0);
-		(void)o_pwd;
-		(void)c_pwd;
 //		printf("gere2\n");
 		tmp = get_env_var("PWD", env);
 //		printf("gere3\n");

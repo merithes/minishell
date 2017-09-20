@@ -5,104 +5,68 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <vboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/15 11:57:23 by vboivin           #+#    #+#             */
-/*   Updated: 2017/09/13 21:13:48 by vboivin          ###   ########.fr       */
+/*   Created: 2016/03/07 18:20:54 by nmougino          #+#    #+#             */
+/*   Updated: 2016/10/20 21:39:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_tabsize(char *s)
+static	size_t	ft_nb_word(const char *s)
 {
-	int		size;
-	int		i;
+	size_t	i;
+	int		isword;
 
 	i = 0;
-	size = 0;
-	while (s[i])
+	isword = 0;
+	while (*s)
 	{
-		i += (s[i] <= 32) ? 1 : 0;
-		while (s[i] > 32 && s[i])
+		if (isword == 0 && *s > 32)
 		{
-			size++;
+			isword = 1;
 			i++;
 		}
+		else if (isword == 1 && *s <= 32)
+			isword = 0;
+		s++;
 	}
-	return (size);
+	return (i);
 }
 
-static int	ft_len(char *s, int start)
+static size_t	ft_length_word(const char *s)
 {
-	int		len;
+	size_t	length;
 
-	len = 0;
-	while (s[start] > 32 && s[start])
+	length = 0;
+	while (*s && *s > 32)
 	{
-		len++;
-		start++;
+		length++;
+		s++;
 	}
-	return (len);
+	return (length);
 }
 
-static char	*ft_createstr(char *s, char *s2, int start)
-{
-	int		i;
-
-	i = 0;
-	while (s[start] && s[start] > 32)
-	{
-		s2[i] = s[start];
-		i++;
-		start++;
-	}
-	s2[i] = '\0';
-	return (s2);
-}
-
-static char	**ft_createtab(char **tab, char *s, int start)
-{
-	int		len;
-	int		i;
-	int		j;
-
-	i = start;
-	j = 0;
-	while (s[i])
-	{
-		len = ft_len(s, start);
-		tab[j] = (char *)malloc(sizeof(char) * (len + 1));
-		if (!(tab[j]))
-			return (NULL);
-		tab[j] = ft_createstr(s, tab[j], start);
-		j++;
-		i += ft_len(s, start);
-		while (s[i] <= 32 && s[i])
-			i++;
-		start = i;
-	}
-	tab[j] = NULL;
-	return (tab);
-}
-
-char		**ft_strsplitw(char const *s)
+char			**ft_strsplitw(const char *s)
 {
 	char	**tab;
-	int		size;
 	int		i;
+	size_t	nbword;
 
-	if (!s)
-		return (NULL);
-	size = ft_tabsize((char *)s);
-	if (!(tab = (char **)malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
-	ft_memset(tab, 0, sizeof(char *) * size + 1);
 	i = 0;
-	if (tab)
+	nbword = ft_nb_word(s);
+	tab = (char **)malloc(sizeof(char *) * (nbword + 1));
+	if (!tab)
+		return (NULL);
+	while (nbword--)
 	{
-		while (s[i] <= 32 && s[i])
-			i++;
-		tab = ft_createtab(tab, (char *)s, i);
-		return (tab);
+		while (*s && *s <= 32)
+			s++;
+		tab[i] = ft_strsub(s, 0, ft_length_word(s));
+		if (!tab[i])
+			return (NULL);
+		s = s + ft_length_word(s);
+		i++;
 	}
-	return (NULL);
+	tab[i] = NULL;
+	return (tab);
 }

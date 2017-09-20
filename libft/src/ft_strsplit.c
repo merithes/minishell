@@ -5,110 +5,68 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <vboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/15 11:57:23 by vboivin           #+#    #+#             */
-/*   Updated: 2017/03/30 19:48:59 by vboivin          ###   ########.fr       */
+/*   Created: 2016/03/07 18:20:54 by nmougino          #+#    #+#             */
+/*   Updated: 2016/10/20 21:39:25 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_tabsize(char *s, char c)
+static	size_t	ft_nb_word(const char *s, char c)
 {
-	int		size;
-	int		i;
+	size_t	i;
+	int		isword;
 
 	i = 0;
-	size = 0;
-	while (s[i])
+	isword = 0;
+	while (*s)
 	{
-		if (s[i] == c)
-			i++;
-		while (s[i] != c && s[i])
+		if (isword == 0 && *s != c)
 		{
-			size++;
+			isword = 1;
 			i++;
 		}
+		else if (isword == 1 && *s == c)
+			isword = 0;
+		s++;
 	}
-	return (size);
+	return (i);
 }
 
-static int	ft_len(char *s, char c, int start)
+static size_t	ft_length_word(const char *s, char c)
 {
-	int		len;
+	size_t	length;
 
-	len = 0;
-	while (s[start] != c && s[start])
+	length = 0;
+	while (*s && *s != c)
 	{
-		len++;
-		start++;
+		length++;
+		s++;
 	}
-	return (len);
+	return (length);
 }
 
-static char	*ft_createstr(char *s, char *s2, char c, int start)
-{
-	int		i;
-
-	i = 0;
-	while (s[start] && s[start] != c)
-	{
-		s2[i] = s[start];
-		i++;
-		start++;
-	}
-	s2[i] = '\0';
-	return (s2);
-}
-
-static char	**ft_createtab(char **tab, char *s, char c, int start)
-{
-	int		len;
-	int		i;
-	int		j;
-
-	i = start;
-	j = 0;
-	while (s[i])
-	{
-		len = ft_len(s, c, start);
-		tab[j] = (char *)malloc(sizeof(char) * (len + 1));
-		if (tab[j])
-		{
-			tab[j] = ft_createstr(s, tab[j], c, start);
-			j++;
-			i += ft_len(s, c, start);
-			while (s[i] == c && s[i])
-				i++;
-			start = i;
-		}
-		else
-			return (NULL);
-	}
-	tab[j] = 0;
-	return (tab);
-}
-
-char		**ft_strsplit(char const *s, char c)
+char			**ft_strsplit(const char *s, char c)
 {
 	char	**tab;
-	int		size;
 	int		i;
+	size_t	nbword;
 
 	i = 0;
-	if (s)
-	{
-		size = ft_tabsize((char *)s, c);
-		tab = (char **)malloc(sizeof(char *) * (size + 1));
-		ft_memset(tab, 0, sizeof(char *) * size + 1);
-		i = 0;
-		if (tab)
-		{
-			while (s[i] == c && s[i])
-				i++;
-			tab = ft_createtab(tab, (char *)s, c, i);
-			return (tab);
-		}
+	nbword = ft_nb_word(s, c);
+	tab = (char **)malloc(sizeof(char *) * (nbword + 1));
+	if (!tab)
 		return (NULL);
+	while (nbword--)
+	{
+		while (*s && *s == c)
+			s++;
+		tab[i] = ft_strsub(s, 0, ft_length_word(s, c));
+		if (!tab[i])
+			return (NULL);
+		s = s + ft_length_word(s, c);
+		i++;
 	}
-	return (NULL);
+	tab[i] = NULL;
+	return (tab);
 }

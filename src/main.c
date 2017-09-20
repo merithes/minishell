@@ -21,26 +21,16 @@ int					exec_cli(char *cli, t_env *i_env)
 
 	tab = ft_strsplitw(cli);
 	bin = builtin_chk(tab, i_env);
-	printf("waiiiitwat\n");
 	if (!bin && !fork())
 	{
-		printf("wat_\n");
 		if (!(getpath(tab[0], i_env, fullpath)))
 		{
-			printf("wat\n");
 			env = rmk_env(i_env);
-			printf("wat1\n");
 			execve(fullpath, tab, env);
-			printf("wat2\n");
-			printf("wat3\n");
 		}
-		printf("wat_2\n");
 	}
-	if (bin)
-		wait(NULL);
+	wait(NULL);
 	free_rec_char(tab);
-	write_prompt(i_env);
-	printf("out of exec\n");
 	return (0);
 }
 
@@ -55,8 +45,8 @@ int					main(int ac, char **av, char **env_o)
 	write_prompt(env);
 	while (get_next_line(0, &cli))
 	{
-		printf("exxing\n");
 		exec_cli(cli, env);
+		write_prompt(env);
 		free(cli);
 	}
 	return (0);

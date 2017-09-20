@@ -30,21 +30,17 @@ int					edit_var_content(t_env *elem, char *cont)
 {
 	int				len;
 
-//	printf("wtf\n");
 	if (!elem)
 		return (-1);
 	len = cont ? ft_strlen(cont) : 0;
 	len += elem->name ? ft_strlen(elem->name) : 0;
-//	printf("wtf\n");
+	elem->full ? free(elem->full) : 1;
 	if (!(elem->full = malloc(len + 2)))
 		return (-1);
-//	printf("wtf\n");
 	elem->cont = cont;
-	elem->full ? free(elem->full) : 1;
 	(elem->full) ? ft_bzero(elem->full, len + 2) : 0;
 	(elem->full && elem->name) ? ft_strcat(elem->full, elem->name) : 0;
 	(elem->full) ? ft_strncat(elem->full, "=", 1) : 0;
 	(elem->full && elem->cont) ? ft_strcat(elem->full, elem->cont) : 0;
-//	printf("wtf\n");
 	return (0);
 }

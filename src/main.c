@@ -19,8 +19,10 @@ int					exec_cli(char *cli, t_env *i_env)
 	char			**env;
 	int				bin;
 
+	if (!cli[0])
+		return (0);
 	tab = ft_strsplitw(cli);
-	bin = builtin_chk(tab, i_env);
+	bin = builtin_chk(tab, cli, i_env);
 	if (!bin && !fork())
 	{
 		if (!(getpath(tab[0], i_env, fullpath)))

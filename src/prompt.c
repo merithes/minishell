@@ -2,7 +2,6 @@
 
 void				write_prompt(t_env *env)
 {
-//	char			*prompt;
 	t_env			*prompt_var;
 	
 	prompt_var = get_env_var("PS1", env);

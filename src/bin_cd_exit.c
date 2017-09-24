@@ -20,6 +20,5 @@ void				cd_bin(char **tab, t_env *env)
 		o_pwd = tmp ? tmp : new_var(env, "OLDPWD", cwd, 0);
 		edit_var_content(o_pwd, c_pwd->cont);
 		edit_var_content(c_pwd, cwd);
-		cwd ? free(cwd) : 1;
 	}
 }

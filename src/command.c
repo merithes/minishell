@@ -47,7 +47,7 @@ int					getpath(char *cmd, t_env *env, char *fullpath)
 	return (0);
 }
 
-int					builtin_chk(char **tab, t_env *env)
+int					builtin_chk(char **tab, char *cmd, t_env *env)
 {
 	int				wit;
 
@@ -56,11 +56,11 @@ int					builtin_chk(char **tab, t_env *env)
 		return (0);
 	(!ft_strncmp("cd", tab[0], 3)) ? (wit++, cd_bin(tab, env)) : 1;
 	(!ft_strncmp("env", tab[0], 4)) ? (wit++, env_bin(tab, env)) : 1;
+	(!ft_strncmp("setenv", tab[0], 7)) ? (wit++, setenv_bin(tab, cmd, env)) : 1;
 /*	
-	(!ft_strncmp("echo ", cmd, 5)) ? (wit++, echo_bin(tab, env)) : 1;
-	(!ft_strncmp("exit ", cmd, 5)) ? (wit++, exit_bin(tab, env)) : 1;
-	(!ft_strncmp("setenv ", cmd, 7)) ? (wit++, senv_bin(tab, env)) : 1;
-	(!ft_strncmp("unsetenv ", cmd, 9)) ? (wit++, uenv_bin(tab, env)) : 1;
+	(!ft_strncmp("echo", tab[0], 5)) ? (wit++, echo_bin(tab, env)) : 1;
+	(!ft_strncmp("exit", tab[0], 5)) ? (wit++, exit_bin(tab, env)) : 1;
+	(!ft_strncmp("unsetenv", tab[0], 9)) ? (wit++, uenv_bin(tab, env)) : 1;
 */
 	return (wit);
 }

@@ -17,9 +17,8 @@ char	*ft_strndup(char *s1, int qty)
 	int		j;
 	char	*s2;
 
-	if (!(s2 = malloc(sizeof(char) * (qty + 1))))
+	if (!(s2 = malloc(qty + 1)))
 		return (NULL);
-	ft_bzero(s2, qty);
 	j = -1;
 	while (++j < qty)
 		s2[j] = s1[j];

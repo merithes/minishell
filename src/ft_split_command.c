@@ -12,33 +12,38 @@
 
 #include "libft.h"
 
-static	size_t	ft_nb_word(const char *s, char c)
+static	size_t	ft_nb_word(const char *s)
 {
 	size_t	i;
 	int		isword;
+	int		brackets;
 
 	i = 0;
 	isword = 0;
+	brackets = 0;
 	while (*s)
 	{
-		if (isword == 0 && *s != c)
-		{
-			isword = 1;
-			i++;
-		}
-		else if (isword == 1 && *s == c)
-			isword = 0;
-		s++;
+		while (*s && *s <= 32)
+			s++;
+		*s ? isword++ : 1;
+		while (*s > 32 && *s != '"')
+			s++;
+		if (*s == '"')
+			while (*s && brackets != 2)
+			{
+				*s == '"' ? brackets++ : 1;
+				s++;
+			}
 	}
 	return (i);
 }
 
-static size_t	ft_length_word(const char *s, char c)
+static size_t	ft_length_word(const char *s)
 {
 	size_t	length;
 
 	length = 0;
-	while (*s && *s != c)
+	while (*s && *s > 32 && *s !='"')
 	{
 		length++;
 		s++;
@@ -46,26 +51,33 @@ static size_t	ft_length_word(const char *s, char c)
 	return (length);
 }
 
-char			**ft_strsplit(const char *s, char c)
+char			**ft_strsplitw(const char *s)
 {
 	char	**tab;
 	int		i;
+	int		wlen;
 	size_t	nbword;
 
 	i = 0;
-	nbword = ft_nb_word(s, c);
+	nbword = ft_nb_word(s);
 	tab = (char **)malloc(sizeof(char *) * (nbword + 1));
 	if (!tab)
 		return (NULL);
 	while (nbword--)
 	{
-		while (*s && *s == c)
+		wlen = ft_length_word(s);
+		if (!(tab[i] = ft_strnew(wlen)))
+			return (NULL);
+		s += wlen;
+		if (
+		while (*s && *s <= 32)
 			s++;
-		tab[i] = ft_strsub(s, 0, ft_length_word(s, c));
+			/*
+		tab[i] = ft_strsub(s, 0, ft_length_word(s));
 		if (!tab[i])
 			return (NULL);
-		s = s + ft_length_word(s, c);
-		i++;
+		s = s + ft_length_word(s);
+		i++;*/
 	}
 	tab[i] = NULL;
 	return (tab);

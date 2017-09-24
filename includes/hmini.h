@@ -32,9 +32,9 @@
 
 # define EXIT 55
 # define N_ENV "Environment received empty. Creating a new one.\n"
-# define MONE 1
-# define MTWO 1 << 1
-# define MFOU 1 << 2
+# define MONE (1)
+# define MTWO (1 << 1)
+# define MFOU (1 << 2)
 
 /*
 ** /!\SYSTEM DEPENDANT /!\
@@ -77,12 +77,15 @@ typedef struct				s_env
 void						write_prompt(t_env *env);
 int							getpath(char *cmd, t_env *env, char *fullpath);
 
-int							builtin_chk(char **tab, t_env *env);
+int							builtin_chk(char **tab, char *cmd, t_env *env);
 void						cd_bin(char **tab, t_env *env);
 void						env_bin(char **tab, t_env *env);
+void						setenv_bin(char **tab, char *cmd, t_env *env);
 
 int							edit_var_content(t_env *elem, char *cont);
 char						**rmk_env(t_env *inp);
+int							env_is_valid(char *inp, char *inp2);
+char						*ft_var_brackets(char *str, int allc);
 
 t_env						*translate_env(char *env[], int type);
 t_env						*init_env(void);

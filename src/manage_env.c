@@ -18,6 +18,7 @@ char				*get_cut_env(char *inp, int type)
 
 t_env				*get_env_var(char *to_search, t_env *list)
 {
+	!(list->name) ? list = list->next : NULL;
 	while (list)
 	{
 		if (ft_strcmp(to_search, list->name))
@@ -26,27 +27,6 @@ t_env				*get_env_var(char *to_search, t_env *list)
 			return (list);
 	}
 	return (NULL);
-}
-
-int					edit_var_content(t_env *elem, char *cont)
-{
-	int				len;
-
-	if (!elem)
-		return (-1);
-	len = cont ? ft_strlen(cont) : 0;
-	len += elem->name ? ft_strlen(elem->name) : 0;
-	printf("I'll be freeing full of %s\t%p\n", elem->name, elem->full);
-	elem->full ? free(elem->full) : 1;
-	printf("wate\n");
-	if (!(elem->full = malloc(len + 2)))
-		return (-1);
-	elem->cont = cont;
-	(elem->full) ? ft_bzero(elem->full, len + 2) : 0;
-	(elem->full && elem->name) ? ft_strcat(elem->full, elem->name) : 0;
-	(elem->full) ? ft_strncat(elem->full, "=", 1) : 0;
-	(elem->full && elem->cont) ? ft_strcat(elem->full, elem->cont) : 0;
-	return (0);
 }
 
 int					env_is_valid(char *name, char *cont)

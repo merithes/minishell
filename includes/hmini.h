@@ -35,6 +35,8 @@
 # define MONE (1)
 # define MTWO (1 << 1)
 # define MFOU (1 << 2)
+# define DEF_PROMPT "[\\s]\\u> "
+# define DEF_PATH "/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin"
 
 /*
 ** /!\SYSTEM DEPENDANT /!\
@@ -77,12 +79,16 @@ typedef struct				s_env
 void						write_prompt(t_env *env);
 int							getpath(char *cmd, t_env *env, char *fullpath);
 
-int							builtin_chk(char **tab, char *cmd, t_env *env);
 void						cd_bin(char **tab, t_env *env);
+void						echo_bin(char **tab, char *cmd, t_env *env);
+void						exit_bin(char **tab, char *cmd, t_env *env);
+
+void						uenv_bin(char **tab, t_env *env);
 void						env_bin(char **tab, t_env *env);
 void						setenv_bin(char **tab, char *cmd, t_env *env);
+char						*skip_cmd(char *inp, int nb);
 
-int							edit_var_content(t_env *elem, char *cont);
+int							builtin_chk(char **tab, char *cmd, t_env *env);
 char						**rmk_env(t_env *inp);
 int							env_is_valid(char *inp, char *inp2);
 char						*ft_var_brackets(char *str, int allc);
@@ -93,5 +99,13 @@ t_env						*init_env(void);
 t_env						*get_env_var(char *to_search, t_env *list);
 char						*get_cut_env(char *inp, int type);
 t_env						*new_var(t_env *root, char *name, char *content, int allc);
+t_env						*create_root_var(void);
+
+void						increment_shlvl(t_env *root);
+
+void						free_list(t_env *root);
+
+int							edit_var_content(t_env *elem, char *cont);
+int							edit_specific_var(t_env *root, char *lf, char *newc);
 
 #endif

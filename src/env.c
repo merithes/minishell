@@ -67,15 +67,18 @@ t_env				*translate_env(char **env_o, int type)
 	if (!env_o[0])
 		return(init_env());
 	i = 0;
-	if (!(env = mkenv(env_o[i])))
+	if (!(env = create_root_var()))
 		return (NULL);
-	cursor = env;
+	if (!(env->next = mkenv(env_o[i])))
+		return (NULL);
+	cursor = env->next;
 	while (env_o[++i])
 	{
 		if(!(cursor->next = mkenv(env_o[i])))
 			return (NULL);
 		cursor = cursor->next;
 	}
+	increment_shlvl(env);
 	return (env);
 }
 
@@ -85,8 +88,11 @@ char				**rmk_env(t_env *elist)
 	int				i[2];
 
 	i[0] = -1;
+	if (!elist)
+		return (NULL);
+	!(elist->name) ? elist = elist->next : NULL;
 	i[1] = getlen_list(elist);
-	if (i[1] && !(outp = malloc((i[1] + 1) *sizeof(char *))))
+	if (i[1] && !(outp = malloc((i[1] + 1) * sizeof(char *))))
 		return (NULL);
 	while (elist)
 	{

@@ -12,6 +12,19 @@
 
 #include "hmini.h"
 
+t_env				*create_root_var(void)
+{
+	t_env			*outp;
+
+	if (!(outp = malloc(sizeof(t_env))))
+		return (NULL);
+	outp->name = NULL;
+	outp->cont = NULL;
+	outp->full = NULL;
+	outp->next = NULL;
+	return (outp);
+}
+
 t_env				*creat_var(char *name, char *cont, char *full, int allc)
 {
 	t_env			*outp;
@@ -20,30 +33,22 @@ t_env				*creat_var(char *name, char *cont, char *full, int allc)
 		name = get_cut_env(full, 0);
 	if ((!cont) && full)
 		cont = get_cut_env(full, 1);
-	if (!(outp = malloc(sizeof(t_env *))))
+	if (!(outp = malloc(sizeof(t_env))))
 		return (NULL);
-	printf("creat_var\n%d\t%d\n", MONE & allc, MTWO & allc);
 	outp->name = (allc & MONE) ? name : ft_strdup(name);
-	allc & MONE ? printf("NAME\n") : printf("nNAME\n");
 	outp->cont = (allc & MTWO) ? cont : ft_strdup(cont);
-	allc & MTWO ? printf("CONT\n") : printf("nCONT\n");
+	outp->next = NULL;
 	if (allc & MFOU && !name && !cont)
 		outp->full = full;
 	else
 	{
-		if (!(outp->full = (char *)malloc(ft_strlen(name) + ft_strlen(cont) + 3)))
+		if (!(outp->full = malloc(ft_strlen(name) + ft_strlen(cont) + 3)))
 			return (NULL);
-		printf("full_m\t%p\n", outp->full);
 		ft_bzero(outp->full, ft_strlen(name) + ft_strlen(cont) + 3);
 		ft_strcat(outp->full, outp->name);
 		ft_strcat(outp->full, "=");
 		ft_strcat(outp->full, outp->cont);
-		printf("full\t%p\t%s\n", outp->full, outp->full);
 	}
-	outp->next = NULL;
-	printf("pwoopsie\n");
-	free(outp->full);
-	printf("woopsie\n");
 	return (outp);
 }
 
@@ -55,15 +60,21 @@ t_env				*init_env(void)
 
 	ft_putstr(N_ENV);
 	temp = getcwd(NULL, 0);
-	if (!(env = creat_var("PWD", temp, NULL, MTWO)))
+	if (!(env = create_root_var()))
 		ft_push_error(1);
-	if (!(env->next = creat_var("PS1", "PS1>_ ", NULL, 0)))
+	if (!(env->next = creat_var("PWD", temp, NULL, MTWO)))
+		ft_push_error(1);
+	cursor = env->next;
+	if (!(cursor->next = creat_var("PS1", DEF_PROMPT, NULL, 0)))
 		ft_push_error(1);
 	cursor = env->next;
 	if (!(cursor->next = creat_var("OLDPWD", NULL, env->full, 0))) 
 		ft_push_error(1);
 	cursor = cursor->next;
 	if (!(cursor->next = creat_var("SHLVL", "1", 0, 0))) 
+		ft_push_error(1);
+	cursor = cursor->next;
+	if (!(cursor->next = creat_var("PATH", DEF_PATH, 0, 0))) 
 		ft_push_error(1);
 	return (env);
 }
@@ -72,10 +83,31 @@ t_env				*new_var(t_env *root, char *name, char *cont, int allc)
 {
 	t_env			*outp;
 
-	printf("creatin %s with ptrs:\t%p\t%p\n", name, name, cont);
-	outp = creat_var(name, cont, NULL, allc);
+	if (!name && !cont && !allc)
+	{
+		outp = malloc(sizeof(t_env));
+		outp->name = NULL;
+		outp->cont = NULL;
+		outp->full = NULL;
+	}
+	else
+		outp = creat_var(name, cont, NULL, allc);
+	if (!root)
+		return (outp);
 	while (root->next)
 		root = root->next;
 	root->next = outp;
 	return (outp);
+}
+
+void				increment_shlvl(t_env *inp)
+{
+	t_env			*cursor;
+	char			*tmp;
+
+	if (!(cursor = get_env_var("SHLVL", inp)))
+		return ;
+	tmp = cursor->cont;
+	edit_var_content(cursor, ft_itoa(ft_atoi(cursor->cont) + 1));
+	free(tmp);
 }

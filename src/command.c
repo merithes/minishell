@@ -38,7 +38,7 @@ int					getpath(char *cmd, t_env *env, char *fullpath)
 
 	i = -1;
 	ft_bzero(fullpath, MAXPATHLEN + 1);
-	if (!lstat(cmd, &statf))
+	if (!lstat(cmd, &statf) && ft_strrchr(cmd, '/'))
 	{
 		ft_strcpy(fullpath, cmd);
 		return (0);

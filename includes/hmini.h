@@ -40,6 +40,7 @@
 # define DEF_PATH "/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin"
 
 # define NSFOD " No such file or directory\n"
+# define NSC " No such command\n"
 
 /*
 ** /!\SYSTEM DEPENDANT /!\

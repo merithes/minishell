@@ -56,7 +56,7 @@ int					exec_cli(char *cli, t_env *i_env)
 	bin = builtin_chk(tab, cli, i_env) ? 1 : 0;
 	getpath(tab[0], i_env, fullpath);
 	if (fullpath[0] == 0 && !bin)
-		derror(tab[0], tab[1], NSFOD, 1);
+		derror(tab[0], tab[1], NULL, 0);
 	if (!bin && fullpath[0] && !fork())
 	{
 		signal(SIGINT, SIG_DFL);
@@ -77,7 +77,8 @@ int					main(int ac, char **av, char **env_o)
 
 	(void)ac;
 	(void)av;
-	env = translate_env(env_o, 0);
+	if (!(env = translate_env(env_o, 0)))
+		return (-1);
 	backup_env = env;
 	write_prompt(env);
 	signal(SIGINT, SIG_IGN);

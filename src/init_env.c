@@ -59,7 +59,8 @@ t_env				*init_env(void)
 	char			*temp;
 
 	ft_putstr(N_ENV);
-	temp = getcwd(NULL, 0);
+	if (!(temp = getcwd(NULL, 0)))
+		return (NULL);
 	if (!(env = create_root_var()))
 		ft_push_error(1);
 	if (!(env->next = creat_var("PWD", temp, NULL, MTWO)))
@@ -75,6 +76,8 @@ t_env				*init_env(void)
 		ft_push_error(1);
 	cursor = cursor->next;
 	if (!(cursor->next = creat_var("PATH", DEF_PATH, 0, 0))) 
+		ft_push_error(1);
+	if (!(cursor->next->next = creat_var("PS1", DEF_PROMPT, 0, 0)))
 		ft_push_error(1);
 	return (env);
 }

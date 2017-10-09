@@ -15,10 +15,10 @@ void				derror(char *cmd, char *path, char *specs, int status)
 		if (!path || (accessd = access(path, R_OK) != 0))
 			ft_putstr(NSFOD);
 		else if ((accessd = access(path, X_OK)) != 0)
-			write(1, "Permissions denied\n", 18);
+			write(1, " Permissions denied\n", 19);
 		else if (S_ISLNK(statf.st_mode))
-			write(1, "Link loop\n", 10);
+			write(1, " Link loop\n", 11);
 	}
 	else
-		write(1, "Cannot execute command\n", 23);
+		write(1, " Cannot execute command\n", 24);
 }

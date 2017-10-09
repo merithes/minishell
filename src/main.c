@@ -21,15 +21,6 @@ void				signal_handler(int inp)
 	write_prompt(backup_env);
 }
 
-void				error_disp(char *cmd)
-{
-	pcat("minishell: ", cmd, ": ", 0);
-	if (ft_strrchr(cmd, '/'))
-		ft_putstr("No such file or directory\n");
-	else
-		ft_putstr("Command not found\n");
-}
-
 void				free_list(t_env *root)
 {
 	t_env			*cursor;
@@ -65,13 +56,12 @@ int					exec_cli(char *cli, t_env *i_env)
 	bin = builtin_chk(tab, cli, i_env) ? 1 : 0;
 	getpath(tab[0], i_env, fullpath);
 	if (fullpath[0] == 0 && !bin)
-		error_disp(tab[0]);
+		derror(tab[0], tab[1], NSFOD, 1);
 	if (!bin && fullpath[0] && !fork())
 	{
 		signal(SIGINT, SIG_DFL);
 		env = rmk_env(i_env);
 		execve(fullpath, tab, env);
-		perror(NULL);
 	}
 	else
 		signal(SIGINT, &signal_handler);
@@ -93,6 +83,7 @@ int					main(int ac, char **av, char **env_o)
 	signal(SIGINT, SIG_IGN);
 	while (get_next_line(0, &cli))
 	{
+		cli = line_env_interpret(cli, env);
 		exec_cli(cli, env);
 		write_prompt(env);
 		free(cli);

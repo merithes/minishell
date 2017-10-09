@@ -31,12 +31,15 @@
 */
 
 # define EXIT 55
-# define N_ENV "Environment received empty. Creating a new one.\n"
 # define MONE (1)
 # define MTWO (1 << 1)
 # define MFOU (1 << 2)
+
+# define N_ENV "Environment received empty. Creating a new one.\n"
 # define DEF_PROMPT "[\\s]\\u> "
 # define DEF_PATH "/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin"
+
+# define NSFOD " No such file or directory\n"
 
 /*
 ** /!\SYSTEM DEPENDANT /!\
@@ -77,6 +80,8 @@ typedef struct				s_env
 
 
 void						write_prompt(t_env *env);
+char						*line_env_interpret(char *inp, t_env *env);
+char						*skip_cmd(char *inp, int nb);
 int							getpath(char *cmd, t_env *env, char *fullpath);
 
 void						cd_bin(char **tab, t_env *env);
@@ -86,7 +91,6 @@ void						exit_bin(char **tab, char *cmd, t_env *env);
 void						uenv_bin(char **tab, t_env *env);
 void						env_bin(char **tab, t_env *env);
 void						setenv_bin(char **tab, char *cmd, t_env *env);
-char						*skip_cmd(char *inp, int nb);
 
 int							builtin_chk(char **tab, char *cmd, t_env *env);
 char						**rmk_env(t_env *inp);
@@ -107,5 +111,9 @@ void						free_list(t_env *root);
 
 int							edit_var_content(t_env *elem, char *cont);
 int							edit_specific_var(t_env *root, char *lf, char *newc);
+
+char						*line_env_interpret(char *inp, t_env *list);
+
+void						derror(char *s1, char *s2, char *s3, int stats);
 
 #endif

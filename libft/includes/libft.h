@@ -51,6 +51,7 @@ char				*ft_strncpy(char *dest, const char *src, size_t limit);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strdup(const char *str);
 size_t				ft_strlen(const char *str);
+size_t				ft_wordlen(const char *str);
 char				*ft_strstr(const char *big, const char *lil);
 char				*ft_strnstr(const char *big, const char *lil, size_t max);
 char				*ft_strnew(size_t size);

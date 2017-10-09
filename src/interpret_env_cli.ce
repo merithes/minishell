@@ -24,7 +24,7 @@ char				*new_str_cli(char *inp, t_env *env)
 	{
 		if (inp[i[0]] == '$')
 		{
-			i[2] = ft_pathlen(inp + i[0] + 1);
+			i[2] = ft_wordlen(inp + i[0] + 1);
 			i[1] += ft_strlen(get_env_cont(inp + i[0] + 1, i[2], env));
 			i[0] += i[2] + 1;
 		}
@@ -53,7 +53,7 @@ char				*line_env_interpret(char *inp, t_env *env)
 			outp[i[0] + i[1]] = inp[i[0] + i[3]];
 		else
 		{
-			i[2] = ft_pathlen(inp + i[0] +i[3] + 1);
+			i[2] = ft_wordlen(inp + i[0] +i[3] + 1);
 			if ((tmp = get_env_cont(inp + i[0] + i[3] + 1, i[2], env)) != NULL)
 				ft_strcat(outp, tmp);
 			i[1] += (tmp != NULL) ? (int)ft_strlen(tmp) - 1 : -1;

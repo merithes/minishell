@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pathlen.c                                       :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/04 19:12:22 by vboivin           #+#    #+#             */
-/*   Updated: 2017/07/26 11:43:33 by vboivin          ###   ########.fr       */
+/*   Created: 2016/12/09 10:59:03 by vboivin           #+#    #+#             */
+/*   Updated: 2016/12/09 19:52:47 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_pathlen(const char *str)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	int		i;
+	t_list	*getnext;
+	t_list	*temp;
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] > 32 && ((str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_'
-		|| (str[i] >= '1' && str[i] <= '9')))
-		i++;
-	return (i);
+	getnext = *alst;
+	while (getnext != NULL)
+	{
+		temp = getnext->next;
+		del(getnext->content, getnext->content_size);
+		free(getnext);
+		getnext = temp;
+	}
+	*alst = NULL;
 }

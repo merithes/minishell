@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pathlen.c                                       :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/04 19:12:22 by vboivin           #+#    #+#             */
-/*   Updated: 2017/07/26 11:43:33 by vboivin          ###   ########.fr       */
+/*   Created: 2016/12/11 19:28:57 by vboivin           #+#    #+#             */
+/*   Updated: 2016/12/11 19:45:37 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_pathlen(const char *str)
+long int				ft_lintlen(long int nb)
 {
-	int		i;
+	unsigned int		pwr;
+	long int			i;
+	unsigned int		n;
 
+	pwr = 1;
 	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] > 32 && ((str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_'
-		|| (str[i] >= '1' && str[i] <= '9')))
+	if (nb == 0)
+		return (1);
+	if (nb < 0)
+	{
 		i++;
+		n = (unsigned int)-nb;
+	}
+	else
+		n = (unsigned int)nb;
+	while (pwr <= n)
+	{
+		pwr *= 10;
+		i++;
+	}
 	return (i);
 }

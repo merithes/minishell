@@ -25,7 +25,7 @@ static void			chk_exist(char *cmd, char **path, char *fullpath)
 		ft_strcat(fullpath, "/");
 		ft_strcat(fullpath, cmd);
 	}
-	if (!(path[i]) && lstat(fullpath, &statf))
+	if (!(path[i]))
 		ft_bzero(fullpath, MAXPATHLEN + 1);
 }
 

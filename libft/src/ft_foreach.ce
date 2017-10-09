@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pathlen.c                                       :+:      :+:    :+:   */
+/*   ft_foreach.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/04 19:12:22 by vboivin           #+#    #+#             */
-/*   Updated: 2017/07/26 11:43:33 by vboivin          ###   ########.fr       */
+/*   Created: 2016/12/02 15:27:05 by vboivin           #+#    #+#             */
+/*   Updated: 2016/12/02 17:53:42 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t		ft_pathlen(const char *str)
+void	ft_foreach(int *tab, int length, void (*f)(int))
 {
-	int		i;
+	int i;
 
 	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] > 32 && ((str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_'
-		|| (str[i] >= '1' && str[i] <= '9')))
-		i++;
-	return (i);
+	while (i < length)
+		f(tab[i++]);
 }

@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pathlen.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/04 19:12:22 by vboivin           #+#    #+#             */
-/*   Updated: 2017/07/26 11:43:33 by vboivin          ###   ########.fr       */
+/*   Created: 2016/12/09 10:22:47 by vboivin           #+#    #+#             */
+/*   Updated: 2017/03/30 18:04:16 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_pathlen(const char *str)
+t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	int		i;
+	t_list	*outp;
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] > 32 && ((str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_'
-		|| (str[i] >= '1' && str[i] <= '9')))
-		i++;
-	return (i);
+	if (!(outp = malloc(sizeof(*outp))))
+		return (NULL);
+	if (!content)
+	{
+		outp->content = NULL;
+		outp->content_size = 0;
+	}
+	else
+	{
+		if (!(outp->content = malloc(content_size)))
+			return (NULL);
+		ft_memcpy(outp->content, content, content_size);
+		outp->content_size = content_size;
+	}
+	outp->next = NULL;
+	return (outp);
 }

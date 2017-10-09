@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pathlen.c                                       :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: vboivin <vboivin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/04 19:12:22 by vboivin           #+#    #+#             */
-/*   Updated: 2017/07/26 11:43:33 by vboivin          ###   ########.fr       */
+/*   Created: 2016/12/15 11:57:20 by vboivin           #+#    #+#             */
+/*   Updated: 2016/12/15 11:57:20 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_pathlen(const char *str)
+char	*ft_strnew(size_t size)
 {
-	int		i;
+	char	*newmem;
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] > 32 && ((str[i] >= 'A' && str[i] <= 'Z') || str[i] == '_'
-		|| (str[i] >= '1' && str[i] <= '9')))
-		i++;
-	return (i);
+	newmem = (char *)malloc(size + 1);
+	if (newmem == NULL)
+		return (NULL);
+	ft_bzero(newmem, size + 1);
+	return (newmem);
 }

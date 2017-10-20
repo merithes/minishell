@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/09/13 23:40:58 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 01:45:29 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int					exec_cli(char *cli, t_env *i_env)
 		execve(fullpath, tab, env);
 	}
 	else
-		signal(SIGINT, &signal_handler);
+		signal(SIGINT, SIG_IGN);
 	wait(NULL);
 	free_rec_char(tab);
 	return (0);
@@ -84,7 +84,7 @@ int					main(int ac, char **av, char **env_o)
 		return (-1);
 	backup_env = env;
 	write_prompt(env);
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, &signal_handler);
 	while (get_next_line(0, &cli))
 	{
 		cli = line_env_interpret(cli, env);

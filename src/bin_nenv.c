@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_nenv.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/21 01:28:29 by vboivin           #+#    #+#             */
+/*   Updated: 2017/10/21 01:31:27 by vboivin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "hmini.h"
 
 char				*repath(char *inp, t_env *env)
@@ -11,7 +23,8 @@ char				*repath(char *inp, t_env *env)
 		return (inp);
 	ft_strncat(outp, cursor->cont, ft_strlen(cursor->cont));
 	ft_strncat(outp, inp + 1, ft_strlen(inp) - 1);
-	return ((free(inp), outp));
+	free(inp);
+	return (outp);
 }
 
 void				cd_bin(char **tab, t_env *env)
@@ -24,7 +37,8 @@ void				cd_bin(char **tab, t_env *env)
 	edit_specific_var(env, "minish_bin_", "(builtin: cd)");
 	chd = NULL;
 	if (tab[1])
-		chd = (ft_strrchr(tab[1], '~') == tab[1]) ? repath(tab[1], env) : tab[1];
+		chd = (ft_strrchr(tab[1], '~') == tab[1]) ?
+			repath(tab[1], env) : tab[1];
 	else if ((cursor = get_env_var("HOME", env)) != NULL)
 		chd = ft_strdup(cursor->cont);
 	if (chdir(chd) < 0)

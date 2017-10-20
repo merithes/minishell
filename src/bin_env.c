@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/21 01:28:02 by vboivin           #+#    #+#             */
+/*   Updated: 2017/10/21 01:30:12 by vboivin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "hmini.h"
 
 void				env_bin(char **tab, t_env *env)
@@ -36,10 +48,11 @@ void				setenv_bin(char **tab, char *cmd, t_env *env)
 	cmd = skip_cmd(cmd, 7);
 	if (!tab || !tab[0] || !tab[1]
 		|| !env || !(ft_strrchr(tab[1], '=') != tab[1]))
-			return ;
+		return ;
 	svar = ft_strsplit(cmd, '=');
 	i = -1;
-	while (svar[++i]);
+	while (svar[i])
+		i++;
 	(i == 2) ? svar[1] = ft_var_brackets(svar[1], 1) : NULL;
 	valid = !env_is_valid(svar[0], svar[1]) ? 1 : 0;
 	if (!(var_exists = get_env_var(svar[0], env)) && i == 2 && valid)

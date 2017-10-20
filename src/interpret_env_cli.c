@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   interpret_env_cli.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/21 01:27:40 by vboivin           #+#    #+#             */
+/*   Updated: 2017/10/21 01:27:47 by vboivin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "hmini.h"
 
 char				*get_env_cont(char *inp, size_t size, t_env *env)
@@ -42,13 +54,15 @@ char				*line_env_interpret(char *inp, t_env *env)
 	int				i[4];
 	char			*tmp;
 
-	if (!env || !inp || !ft_strrchr(inp, '$'))
+	if (!env || !inp || (!ft_strrchr(inp, '$') && !ft_strrchr(inp, '"')))
 		return (inp);
 	if (!(outp = new_str_cli(inp, env)))
 		return (inp);
 	ft_bzero(i, sizeof(int) * 4);
 	while (inp[i[0] + i[3]])
 	{
+		while(inp[i[0] +i[3]] && inp[i[0] +i[3]] == '"')
+			i[3]++;
 		if (inp[i[0] + i[3]] != '$')
 			outp[i[0] + i[1]] = inp[i[0] + i[3]];
 		else

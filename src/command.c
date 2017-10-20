@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/21 01:28:37 by vboivin           #+#    #+#             */
+/*   Updated: 2017/10/21 01:40:20 by vboivin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "hmini.h"
 
 char				*skip_cmd(char *inp, int nb)
@@ -36,9 +48,8 @@ int					getpath(char *cmd, t_env *env, char *fullpath)
 	int				i;
 	struct stat		statf;
 
-	i = -1;
 	ft_bzero(fullpath, MAXPATHLEN + 1);
-	if (!lstat(cmd, &statf) && ft_strrchr(cmd, '/'))
+	if (!lstat(cmd, &statf) && ft_strrchr(cmd, '/') && (i = -1))
 	{
 		ft_strcpy(fullpath, cmd);
 		return (0);
@@ -63,14 +74,14 @@ int					builtin_chk(char **tab, char *cmd, t_env *env)
 {
 	int				wit;
 
-	wit = 0;
+	wit = 6;
 	if (!tab[0])
 		return (0);
-	(!ft_strncmp("exit", tab[0], 5)) ? (wit++, exit_bin(tab, cmd, env)) : 1;
-	(!ft_strncmp("cd", tab[0], 3)) ? (wit++, cd_bin(tab, env)) : 1;
-	(!ft_strncmp("env", tab[0], 4)) ? (wit++, env_bin(tab, env)) : 1;
-	(!ft_strncmp("setenv", tab[0], 7)) ? (wit++, setenv_bin(tab, cmd, env)) : 1;
-	(!ft_strncmp("unsetenv", tab[0], 9)) ? (wit++, uenv_bin(tab, env)) : 1;
-	(!ft_strncmp("echo", tab[0], 5)) ? (wit++, echo_bin(tab, cmd, env)) : 1;
+	(!ft_strncmp("exit", tab[0], 5)) ? exit_bin(tab, cmd, env) : wit--;
+	(!ft_strncmp("cd", tab[0], 3)) ? cd_bin(tab, env) : --wit;
+	(!ft_strncmp("env", tab[0], 4)) ? env_bin(tab, env) : --wit;
+	(!ft_strncmp("setenv", tab[0], 7)) ? setenv_bin(tab, cmd, env) : --wit;
+	(!ft_strncmp("unsetenv", tab[0], 9)) ? uenv_bin(tab, env) : --wit;
+	(!ft_strncmp("echo", tab[0], 5)) ? echo_bin(tab, cmd, env) : --wit;
 	return (wit);
 }

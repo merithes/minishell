@@ -68,7 +68,7 @@ t_env				*init_env(void)
 	cursor = env->next;
 	if (!(cursor->next = creat_var("PS1", DEF_PROMPT, NULL, 0)))
 		ft_push_error(1);
-	cursor = env->next;
+	cursor = cursor->next;
 	if (!(cursor->next = creat_var("OLDPWD", NULL, env->full, 0))) 
 		ft_push_error(1);
 	cursor = cursor->next;

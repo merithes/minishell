@@ -54,9 +54,12 @@ int					exec_cli(char *cli, t_env *i_env)
 		return (0);
 	tab = ft_strsplitw(cli);
 	bin = builtin_chk(tab, cli, i_env) ? 1 : 0;
-	getpath(tab[0], i_env, fullpath);
+	(!bin) ? getpath(tab[0], i_env, fullpath) :
+		ft_bzero(fullpath, MAXPATHLEN + 1);
 	if (fullpath[0] == 0 && !bin)
 		derror(tab[0], tab[1], NULL, 0);
+	(fullpath[0]) ? edit_specific_var(i_env, "_", fullpath) :
+					edit_specific_var(i_env, "_", tab[0]);
 	if (!bin && fullpath[0] && !fork())
 	{
 		signal(SIGINT, SIG_DFL);

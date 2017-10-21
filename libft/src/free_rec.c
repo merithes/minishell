@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 21:06:19 by vboivin           #+#    #+#             */
-/*   Updated: 2017/09/13 21:10:30 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 05:54:41 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void			free_rec_char(char **inp)
 {
 	int			i;
 
-	if (inp)
+	if (!inp)
 		return ;
-	i = 0;
-	while (inp[i])
+	i = -1;
+	while (inp[++i])
 		free(inp[i]);
 	free(inp);
 }

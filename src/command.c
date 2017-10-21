@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:37 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:40:20 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 06:16:05 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static void			chk_exist(char *cmd, char **path, char *fullpath)
 	int				i;
 
 	i = 0;
+	if (!cmd || !fullpath || !path)
+	{
+		ft_bzero(fullpath, MAXPATHLEN + 1);
+		return ;
+	}
 	ft_bzero(fullpath, MAXPATHLEN + 1);
 	ft_strcat(fullpath, path[i++]);
 	ft_strcat(fullpath, "/");
@@ -49,7 +54,7 @@ int					getpath(char *cmd, t_env *env, char *fullpath)
 	struct stat		statf;
 
 	ft_bzero(fullpath, MAXPATHLEN + 1);
-	if (!lstat(cmd, &statf) && ft_strrchr(cmd, '/') && (i = -1))
+	if ((i = -1) && !lstat(cmd, &statf) && ft_strrchr(cmd, '/'))
 	{
 		ft_strcpy(fullpath, cmd);
 		return (0);
@@ -85,3 +90,4 @@ int					builtin_chk(char **tab, char *cmd, t_env *env)
 	(!ft_strncmp("echo", tab[0], 5)) ? echo_bin(tab, cmd, env) : --wit;
 	return (wit);
 }
+

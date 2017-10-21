@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:54:03 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 06:27:34 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_env		*g_backup_env;
 void				signal_handler(int inp)
 {
 	(void)inp;
-	write(1, "\n", 1);
+	write(0, "\n", 1);
 	write_prompt(g_backup_env);
 }
 
@@ -64,8 +64,9 @@ int					exec_cli(char *cli, t_env *i_env)
 		signal(SIGINT, SIG_DFL);
 		env = rmk_env(i_env);
 		execve(fullpath, tab, env);
+		free(env);
 	}
-	else
+	else if (!bin && fullpath[0])
 		signal(SIGINT, SIG_IGN);
 	wait(NULL);
 	free_rec_char(tab);
@@ -88,6 +89,7 @@ int					main(int ac, char **av, char **env_o)
 	{
 		cli = line_env_interpret(cli, env);
 		exec_cli(cli, env);
+		signal(SIGINT, &signal_handler);
 		write_prompt(env);
 		free(cli);
 	}

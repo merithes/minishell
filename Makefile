@@ -6,7 +6,7 @@
 #    By: vboivin <marvin42.fr>                     +#+   +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/17 14:50:04 by vboivin           #+#    #+#              #
-#    Updated: 2017/10/21 01:50:39 by vboivin          ###   ########.fr        #
+#    Updated: 2017/10/21 06:44:15 by vboivin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,11 +30,11 @@ OBJPATH		= obj
 all: $(NAME)
 
 $(OBJPATH)/%.o: $(SRCPATH)/%.c
-	@printf "Compiling $<                                            \r"
+	@printf "Compiling $<                                             \r"
 	@$(COMP) $(FLAGS) -c $< -o $@ $(INC)
 
 $(NAME): $(DIR_OBJ)
-	@printf "                                                        \r"
+	@printf "                                                         \r"
 	@printf "main compilation:\tdone\n"
 	@make -C libft
 	@$(COMP) $(DIR_OBJ) -o $(NAME) $(INCMAC) $(LIBFT) $(FLAGS)

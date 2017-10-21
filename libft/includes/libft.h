@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 14:49:03 by vboivin           #+#    #+#             */
-/*   Updated: 2017/09/13 21:09:06 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 02:02:23 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int					ft_atoi(const char *str);
 char				*ft_itoa(int nb);
 char				*ft_litoa(long int nb);
 void				ft_bzero(void *str, size_t bytes_to_set);
+void				*return_free(void *tf);
 int					ft_sqrt(int nb);
 int					ft_lenchar(int start, char *str, int c);
 void				ft_foreach(int *tab, int length, void (*f)(int));

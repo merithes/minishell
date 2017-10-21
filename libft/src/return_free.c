@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_error.c                                    :+:      :+:    :+:   */
+/*   return_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/21 02:20:08 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 02:20:10 by vboivin          ###   ########.fr       */
+/*   Created: 2017/10/21 02:00:03 by vboivin           #+#    #+#             */
+/*   Updated: 2017/10/21 02:01:03 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void				ft_push_error(int inp)
+void					*return_free(void *tf)
 {
-	perror(NULL);
-	exit(inp);
+	tf ? free(tf) : 0;
+	return (NULL);
 }

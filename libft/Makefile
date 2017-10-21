@@ -6,7 +6,7 @@
 #    By: vboivin <marvin42.fr>                     +#+   +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/17 14:50:04 by vboivin           #+#    #+#              #
-#    Updated: 2017/09/13 21:08:21 by vboivin          ###   ########.fr        #
+#    Updated: 2017/10/21 02:01:17 by vboivin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS =	ft_atoi.c ft_bzero.c ft_foreach.c ft_intlen.c ft_isalnum.c ft_isalpha.c\
 		ft_swap.c ft_tolower.c ft_toupper.c strchr_int.c free_join.c \
 		ft_realloc.c get_next_line.c pcat.c ft_putstrn.c ft_lintlen.c \
 		ft_litoa.c ft_strsplitw.c free_rec.c ft_push_error.c ft_strndup.c \
-		ft_wordlen.c
+		ft_wordlen.c return_free.c
 
 
 DIR_SRC		= $(addprefix $(SRCPATH)/, $(SRCS))

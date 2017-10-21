@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:29:04 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:29:06 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 02:03:37 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char				*get_cut_env(char *inp, int type)
 
 	if (!inp)
 		return (NULL);
-	len = (type) ?	(int)ft_strlen(ft_strrchr(inp, '=') + 1) :
+	len = (type) ? (int)ft_strlen(ft_strrchr(inp, '=') + 1) :
 					(int)(inp - ft_strrchr(inp, '='));
 	if (!(outp = malloc(len + 1)))
 		return (NULL);
@@ -48,7 +48,7 @@ int					env_is_valid(char *name, char *cont)
 	i = -1;
 	if ((!name || !cont)
 		|| ((name[0] < 'A' || name[0] > 'Z') && name[0] != '_'))
-			return (-1);
+		return (-1);
 	while (name[++i])
 		if ((name[i] < 'A' || name[i] > 'Z') && name[i] != '_'
 				&& (name[i] < '0' || name[i] > '9'))
@@ -77,12 +77,12 @@ char				*ft_var_brackets(char *str, int allc)
 	else if (i[1] == 2)
 	{
 		if (str[0] != '"' || str[ft_strlen(str) - 1] != '"')
-			return allc ? (free(str), NULL) : NULL;
+			return (allc) ? return_free(str) : (NULL);
 		else
 		{
 			i[1] = (int)ft_strlen(str);
 			tmp = (ft_strndup(str + 1, (int)(ft_strlen(str) - 2)));
-			return allc ? (free(str), tmp) : tmp;
+			return (allc) ? (return_free(str)) : (tmp);
 		}
 	}
 	return (str);

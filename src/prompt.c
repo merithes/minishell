@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:29:13 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:29:14 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 02:19:05 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int			get_prompt_env(t_env *root, char *look_for)
 static int			prompt_spec(char *inp, t_env *root)
 {
 	if (!inp || !root)
-		return 0;
+		return (0);
 	if (inp[1] == 'u')
 		get_prompt_env(root, "USER");
 	else if (inp[1] == 's')
@@ -48,7 +48,7 @@ static void			print_prompt(char *inp, t_env *root)
 {
 	while (*inp)
 	{
-		inp += (*inp == '\\') ? prompt_spec(inp, root): 0;
+		inp += (*inp == '\\') ? prompt_spec(inp, root) : 0;
 		write(1, inp++, 1);
 	}
 }
@@ -56,7 +56,7 @@ static void			print_prompt(char *inp, t_env *root)
 void				write_prompt(t_env *env)
 {
 	t_env			*prompt_var;
-	
+
 	if ((prompt_var = get_env_var("PS1", env)) != NULL)
 		print_prompt(prompt_var->cont, env);
 	else

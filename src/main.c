@@ -6,19 +6,19 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:45:29 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 01:54:03 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hmini.h"
 
-static t_env		*backup_env;
+static t_env		*g_backup_env;
 
 void				signal_handler(int inp)
 {
 	(void)inp;
 	write(1, "\n", 1);
-	write_prompt(backup_env);
+	write_prompt(g_backup_env);
 }
 
 void				free_list(t_env *root)
@@ -56,8 +56,7 @@ int					exec_cli(char *cli, t_env *i_env)
 	bin = builtin_chk(tab, cli, i_env) ? 1 : 0;
 	(!bin) ? getpath(tab[0], i_env, fullpath) :
 		ft_bzero(fullpath, MAXPATHLEN + 1);
-	if (fullpath[0] == 0 && !bin)
-		derror(tab[0], tab[1], NULL, 0);
+	(fullpath[0] == 0 && !bin) ? derror(tab[0], tab[1], NULL, 0) : 0;
 	(fullpath[0]) ? edit_specific_var(i_env, "_", fullpath) :
 					edit_specific_var(i_env, "_", tab[0]);
 	if (!bin && fullpath[0] && !fork())
@@ -82,7 +81,7 @@ int					main(int ac, char **av, char **env_o)
 	(void)av;
 	if (!(env = translate_env(env_o, 0)))
 		return (-1);
-	backup_env = env;
+	g_backup_env = env;
 	write_prompt(env);
 	signal(SIGINT, &signal_handler);
 	while (get_next_line(0, &cli))

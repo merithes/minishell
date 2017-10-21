@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 21:35:34 by vboivin           #+#    #+#             */
-/*   Updated: 2017/09/13 23:19:47 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 01:52:19 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int			getlen_list(t_env *inp)
 {
 	int				outp;
-	
+
 	outp = 0;
 	while (inp)
 	{
@@ -65,7 +65,7 @@ t_env				*translate_env(char **env_o, int type)
 
 	type++;
 	if (!env_o[0])
-		return(init_env());
+		return (init_env());
 	i = 0;
 	if (!(env = create_root_var()))
 		return (NULL);
@@ -74,7 +74,7 @@ t_env				*translate_env(char **env_o, int type)
 	cursor = env->next;
 	while (env_o[++i])
 	{
-		if(!(cursor->next = mkenv(env_o[i])))
+		if (!(cursor->next = mkenv(env_o[i])))
 			return (NULL);
 		cursor = cursor->next;
 	}

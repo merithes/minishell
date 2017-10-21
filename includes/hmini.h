@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:25:52 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:44:35 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 02:19:48 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef struct				s_env
 ** ============================================================================
 */
 
-
 void						write_prompt(t_env *env);
 char						*line_env_interpret(char *inp, t_env *env);
 char						*skip_cmd(char *inp, int nb);
@@ -103,7 +102,8 @@ t_env						*init_env(void);
 
 t_env						*get_env_var(char *to_search, t_env *list);
 char						*get_cut_env(char *inp, int type);
-t_env						*new_var(t_env *root, char *name, char *content, int allc);
+t_env						*new_var(t_env *root, char *name,
+								char *content, int allc);
 t_env						*create_root_var(void);
 
 void						increment_shlvl(t_env *root);
@@ -111,7 +111,8 @@ void						increment_shlvl(t_env *root);
 void						free_list(t_env *root);
 
 int							edit_var_content(t_env *elem, char *cont);
-int							edit_specific_var(t_env *root, char *lf, char *newc);
+int							edit_specific_var(t_env *root,
+								char *lf, char *newc);
 
 char						*line_env_interpret(char *inp, t_env *list);
 

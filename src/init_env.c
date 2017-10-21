@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:20:15 by vboivin           #+#    #+#             */
-/*   Updated: 2017/09/13 23:41:00 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 02:13:04 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,20 @@ t_env				*init_env(void)
 	ft_putstr(N_ENV);
 	if (!(temp = getcwd(NULL, 0)))
 		return (NULL);
-	if (!(env = create_root_var()))
-		ft_push_error(1);
-	if (!(env->next = creat_var("PWD", temp, NULL, MTWO)))
-		ft_push_error(1);
+	(!(env = create_root_var())) ? ft_push_error(1) : 0;
+	(!(env->next = creat_var("PWD", temp, NULL, MTWO))) ?
+		ft_push_error(1) : 0;
 	cursor = env->next;
-	if (!(cursor->next = creat_var("PS1", DEF_PROMPT, NULL, 0)))
-		ft_push_error(1);
-	cursor = cursor->next;
-	if (!(cursor->next = creat_var("OLDPWD", NULL, env->full, 0))) 
-		ft_push_error(1);
-	cursor = cursor->next;
-	if (!(cursor->next = creat_var("SHLVL", "1", 0, 0))) 
-		ft_push_error(1);
-	cursor = cursor->next;
-	if (!(cursor->next = creat_var("PATH", DEF_PATH, 0, 0))) 
-		ft_push_error(1);
-	if (!(cursor->next->next = creat_var("PS1", DEF_PROMPT, 0, 0)))
-		ft_push_error(1);
+	(!(cursor->next = creat_var("PS1", DEF_PROMPT, NULL, 0))) ?
+		ft_push_error(1) : (void)(cursor = cursor->next);
+	(!(cursor->next = creat_var("OLDPWD", NULL, env->full, 0))) ?
+		ft_push_error(1) : (void)(cursor = cursor->next);
+	(!(cursor->next = creat_var("SHLVL", "1", 0, 0))) ?
+		ft_push_error(1) : (void)(cursor = cursor->next);
+	(!(cursor->next = creat_var("PATH", DEF_PATH, 0, 0))) ?
+		ft_push_error(1) : (void)(cursor = cursor->next);
+	(!(cursor->next = creat_var("PS1", DEF_PROMPT, 0, 0))) ?
+		ft_push_error(1) : 0;
 	return (env);
 }
 

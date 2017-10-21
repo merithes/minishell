@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:27:40 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:27:47 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 02:17:33 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,29 @@ char				*new_str_cli(char *inp, t_env *env)
 
 char				*line_env_interpret(char *inp, t_env *env)
 {
-	char			*outp;
+	char			*chars[2];
 	int				i[4];
-	char			*tmp;
 
-	if (!env || !inp || (!ft_strrchr(inp, '$') && !ft_strrchr(inp, '"')))
-		return (inp);
-	if (!(outp = new_str_cli(inp, env)))
+	if (!env || !inp || (!ft_strrchr(inp, '$') && !ft_strrchr(inp, '"'))
+			|| (!(chars[0] = new_str_cli(inp, env))))
 		return (inp);
 	ft_bzero(i, sizeof(int) * 4);
 	while (inp[i[0] + i[3]])
 	{
-		while(inp[i[0] +i[3]] && inp[i[0] +i[3]] == '"')
+		while (inp[i[0] + i[3]] && inp[i[0] + i[3]] == '"')
 			i[3]++;
 		if (inp[i[0] + i[3]] != '$')
-			outp[i[0] + i[1]] = inp[i[0] + i[3]];
+			chars[0][i[0] + i[1]] = inp[i[0] + i[3]];
 		else
 		{
-			i[2] = ft_pathlen(inp + i[0] +i[3] + 1);
-			if ((tmp = get_env_cont(inp + i[0] + i[3] + 1, i[2], env)) != NULL)
-				ft_strcat(outp, tmp);
-			i[1] += (tmp != NULL) ? (int)ft_strlen(tmp) - 1 : -1;
-			i[3] += (tmp != NULL) ? i[2] : i[2] + 1;
+			i[2] = ft_pathlen(inp + i[0] + i[3] + 1);
+			if ((chars[1] = get_env_cont(inp + i[0] + i[3] + 1, i[2], env)))
+				ft_strcat(chars[0], chars[1]);
+			i[1] += (chars[1] != NULL) ? (int)ft_strlen(chars[1]) - 1 : -1;
+			i[3] += (chars[1] != NULL) ? i[2] : i[2] + 1;
 		}
 		i[0]++;
 	}
 	free(inp);
-	return (outp);
+	return (chars[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 06:27:34 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 20:02:36 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ int					exec_cli(char *cli, t_env *i_env)
 		execve(fullpath, tab, env);
 		free(env);
 	}
-	else if (!bin && fullpath[0])
-		signal(SIGINT, SIG_IGN);
+	(!bin && fullpath[0]) ? signal(SIGINT, SIG_IGN) : 0;
 	wait(NULL);
 	free_rec_char(tab);
 	return (0);

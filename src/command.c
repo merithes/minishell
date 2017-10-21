@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:37 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 06:16:05 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 19:56:01 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,3 @@ int					builtin_chk(char **tab, char *cmd, t_env *env)
 	(!ft_strncmp("echo", tab[0], 5)) ? echo_bin(tab, cmd, env) : --wit;
 	return (wit);
 }
-

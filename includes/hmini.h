@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:25:52 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 02:19:48 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 06:36:47 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void						increment_shlvl(t_env *root);
 
 void						free_list(t_env *root);
 
-int							edit_var_content(t_env *elem, char *cont);
+int							edit_var_content(t_env *elem, char *cont, int booley);
 int							edit_specific_var(t_env *root,
 								char *lf, char *newc);
 

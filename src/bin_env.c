@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:02 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:30:12 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 06:33:55 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void				setenv_bin(char **tab, char *cmd, t_env *env)
 	if (!(var_exists = get_env_var(svar[0], env)) && i == 2 && valid)
 		new_var(env, ft_strdup(svar[0]), ft_strdup(svar[1]), MONE + MTWO);
 	else if (i == 2 && valid)
-		edit_var_content(var_exists, ft_strdup(svar[1]));
+		edit_var_content(var_exists, ft_strdup(svar[1]), 1);
 	i = -1;
 	while (svar[++i])
 		free(svar[i]);

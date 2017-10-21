@@ -6,13 +6,13 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:27:16 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:27:19 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 06:38:05 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hmini.h"
 
-int					edit_var_content(t_env *elem, char *cont)
+int					edit_var_content(t_env *elem, char *cont, int booley)
 {
 	int				len;
 
@@ -23,6 +23,7 @@ int					edit_var_content(t_env *elem, char *cont)
 	elem->full ? free(elem->full) : 1;
 	if (!(elem->full = malloc(len + 2)))
 		return (-1);
+	booley ? free(elem->cont) : 0;
 	elem->cont = cont;
 	(elem->full) ? ft_bzero(elem->full, len + 2) : 0;
 	(elem->full && elem->name) ? ft_strcat(elem->full, elem->name) : 0;
@@ -34,7 +35,6 @@ int					edit_var_content(t_env *elem, char *cont)
 int					edit_specific_var(t_env *root, char *lf, char *newc)
 {
 	t_env			*cursor;
-	char			*tofree;
 
 	if (!root || !lf || !newc)
 		return (-1);
@@ -44,8 +44,6 @@ int					edit_specific_var(t_env *root, char *lf, char *newc)
 			return (-1);
 		return (1);
 	}
-	tofree = cursor->cont;
-	edit_var_content(cursor, ft_strdup(newc));
-	tofree ? free(tofree) : 0;
+	edit_var_content(cursor, ft_strdup(newc), 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:20:15 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 02:13:04 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 06:37:19 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,8 @@ t_env				*new_var(t_env *root, char *name, char *cont, int allc)
 void				increment_shlvl(t_env *inp)
 {
 	t_env			*cursor;
-	char			*tmp;
 
 	if (!(cursor = get_env_var("SHLVL", inp)))
 		return ;
-	tmp = cursor->cont;
-	edit_var_content(cursor, ft_itoa(ft_atoi(cursor->cont) + 1));
-	free(tmp);
+	edit_var_content(cursor, ft_itoa(ft_atoi(cursor->cont) + 1), 1);
 }

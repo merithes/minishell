@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:29 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:31:27 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 06:37:50 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void				cd_bin(char **tab, t_env *env)
 		enviro[0] = enviro[2] ? enviro[2] : new_var(env, "PWD", cwd, 0);
 		enviro[2] = get_env_var("OLDPWD", env);
 		enviro[1] = enviro[2] ? enviro[2] : new_var(env, "OLDPWD", cwd, 0);
-		edit_var_content(enviro[1], enviro[0]->cont);
-		edit_var_content(enviro[0], cwd);
+		edit_var_content(enviro[1], enviro[0]->cont, 0);
+		edit_var_content(enviro[0], cwd, 0);
 	}
 }
 

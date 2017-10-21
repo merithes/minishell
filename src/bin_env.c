@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:02 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 06:33:55 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 21:52:33 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,29 @@ void				setenv_bin(char **tab, char *cmd, t_env *env)
 {
 	char			**svar;
 	t_env			*var_exists;
-	int				i;
-	int				valid;
+	int				nb[2];
 
 	edit_specific_var(env, "minish_bin_", "(builtin: setenv)");
 	cmd = skip_cmd(cmd, 7);
+	nb[0] = 0;
 	if (!tab || !tab[0] || !tab[1]
 		|| !env || !(ft_strrchr(tab[1], '=') != tab[1]))
 		return ;
-	svar = ft_strsplit(cmd, '=');
-	i = -1;
-	while (svar[i])
-		i++;
-	(i == 2) ? svar[1] = ft_var_brackets(svar[1], 1) : NULL;
-	valid = !env_is_valid(svar[0], svar[1]) ? 1 : 0;
-	if (!(var_exists = get_env_var(svar[0], env)) && i == 2 && valid)
+	if (!(svar = ft_strsplit(cmd, '=')))
+		return ;
+	nb[0] = 0;
+	while (svar && svar[nb[0]])
+		nb[0]++;
+	(nb[0] == 3) ? svar[1] = ft_var_brackets(svar[1], 1) : NULL;
+	nb[1] = !env_is_valid(svar[0], svar[1]) ? 1 : 0;
+	if (!(var_exists = get_env_var(svar[0], env)) && nb[0] >= 1 && nb[1])
 		new_var(env, ft_strdup(svar[0]), ft_strdup(svar[1]), MONE + MTWO);
-	else if (i == 2 && valid)
+	else if (nb[0] >= 1 && nb[1])
 		edit_var_content(var_exists, ft_strdup(svar[1]), 1);
-	i = -1;
-	while (svar[++i])
-		free(svar[i]);
-	free(svar);
+	nb[0] = -1;
+	while (svar[++nb[0]])
+		free(svar[nb[0]]);
+	svar ? free(svar) : 0;
 }
 
 void				uenv_bin(char **tab, t_env *root)

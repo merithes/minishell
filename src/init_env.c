@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:20:15 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 06:37:19 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/21 21:52:00 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_env				*creat_var(char *name, char *cont, char *full, int allc)
 		ft_bzero(outp->full, ft_strlen(name) + ft_strlen(cont) + 3);
 		ft_strcat(outp->full, outp->name);
 		ft_strcat(outp->full, "=");
-		ft_strcat(outp->full, outp->cont);
+		outp->cont ? ft_strcat(outp->full, outp->cont) : NULL;
 	}
 	return (outp);
 }

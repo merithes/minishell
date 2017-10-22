@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 21:35:34 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 01:52:19 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/22 00:23:22 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,11 @@ char				**rmk_env(t_env *elist)
 		return (NULL);
 	!(elist->name) ? elist = elist->next : NULL;
 	i[1] = getlen_list(elist);
-	if (i[1] && !(outp = malloc((i[1] + 1) * sizeof(char *))))
+	if (!i[1])
 		return (NULL);
+	if (!(outp = malloc((i[1] + 1) * sizeof(char *))))
+		return (NULL);
+	ft_bzero(outp, sizeof(char *) * i[1] + 1);
 	while (elist)
 	{
 		outp[++i[0]] = elist->full;

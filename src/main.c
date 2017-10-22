@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 20:02:36 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/22 06:11:20 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,52 @@ void				free_list(t_env *root)
 	}
 }
 
-int					exec_cli(char *cli, t_env *i_env)
+int					filter_cli(char **tab, char fp[], char *cli, t_env *i_env)
+{
+	int				bin;
+
+	if (!cli || !cli[0])
+		return (-1);
+	while (*cli && *cli <= 32)
+		cli++;
+	if (!*cli)
+		return (-2);
+	ft_bzero(fp, MAXPATHLEN + 1);
+	bin = builtin_chk(tab, cli, i_env) ? 1 : 0;
+	if (!bin)
+		getpath(tab[0], i_env, fp);
+	else
+		ft_bzero(fp, MAXPATHLEN + 1);
+	if (!fp[0] && !bin)
+		derror(tab[0], tab[1], NULL, 0);
+	else if (fp[0] && !bin)
+		edit_specific_var(i_env, "_", fp);
+	return (bin);	
+}
+
+void				exec_cli(char *cli, t_env *i_env)
 {
 	char			fullpath[MAXPATHLEN + 1];
 	char			**tab;
 	char			**env;
 	int				bin;
 
-	if (!cli[0])
-		return (0);
 	tab = ft_strsplitw(cli);
-	bin = builtin_chk(tab, cli, i_env) ? 1 : 0;
-	(!bin) ? getpath(tab[0], i_env, fullpath) :
-		ft_bzero(fullpath, MAXPATHLEN + 1);
-	(fullpath[0] == 0 && !bin) ? derror(tab[0], tab[1], NULL, 0) : 0;
-	(fullpath[0]) ? edit_specific_var(i_env, "_", fullpath) :
-					edit_specific_var(i_env, "_", tab[0]);
+	if ((bin = filter_cli(tab, fullpath, cli, i_env)) < 0)
+		return ;
 	if (!bin && fullpath[0] && !fork())
 	{
 		signal(SIGINT, SIG_DFL);
 		env = rmk_env(i_env);
 		execve(fullpath, tab, env);
-		free(env);
+		perror(NULL);
+		pcat("minishell: ", fullpath, ": Permission denied.", 1);
+		exit(0);
 	}
-	(!bin && fullpath[0]) ? signal(SIGINT, SIG_IGN) : 0;
+	else if (!bin && fullpath[0])
+		signal(SIGINT, SIG_IGN);
 	wait(NULL);
 	free_rec_char(tab);
-	return (0);
 }
 
 int					main(int ac, char **av, char **env_o)

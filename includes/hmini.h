@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:25:52 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 20:03:12 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/22 03:00:47 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define MONE (1)
 # define MTWO (1 << 1)
 # define MFOU (1 << 2)
+# define MPL MAXPATHLEN
 
 # define N_ENV "Environment received empty. Creating a new one.\n"
 # define DEF_PROMPT "[\\s]\\u> "
@@ -118,8 +119,5 @@ int							edit_specific_var(t_env *root,
 char						*line_env_interpret(char *inp, t_env *list);
 
 void						derror(char *s1, char *s2, char *s3, int stats);
-
-void						signal_handler(int inp);
-int							exec_cli(char *cli, t_env *i_env);
 
 #endif

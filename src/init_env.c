@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:20:15 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 21:52:00 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/22 06:12:21 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_env				*new_var(t_env *root, char *name, char *cont, int allc)
 		outp->name = NULL;
 		outp->cont = NULL;
 		outp->full = NULL;
+		outp->next = NULL;
 	}
 	else
 		outp = creat_var(name, cont, NULL, allc);

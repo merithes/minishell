@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:29:13 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 02:19:05 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 07:40:20 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,12 @@ void				write_prompt(t_env *env)
 	t_env			*prompt_var;
 
 	if ((prompt_var = get_env_var("PS1", env)) != NULL)
-		print_prompt(prompt_var->cont, env);
+	{
+		if (prompt_var->cont)
+			print_prompt(prompt_var->cont, env);
+		else
+			write(1, "default_prompt>_ ", 17);
+	}
 	else
-		ft_putstr("default_prompt>_ ");
+		write(1, "default_prompt>_ ", 17);
 }

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 21:35:34 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/22 00:23:22 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 12:17:26 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ char				**rmk_env(t_env *elist)
 		outp[++i[0]] = elist->full;
 		elist = elist->next;
 	}
+	outp[i[0] + 1] = NULL;
 	return (outp);
 }

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 04:06:33 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 07:33:33 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 12:51:40 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int					quotes_count(char *inp)
 	while (inp[++i])
 	{
 		if (inp[i] == '\\' && inp[i + 1] != 0)
-			i += 2;
-		if (inp[i] == '"')
+			i++;
+		else if (inp[i] == '"')
 			count++;
 		if (!inp[i])
 			break ;

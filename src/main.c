@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 07:51:12 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 13:02:35 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void				signal_handler(int inp)
 int					filter_cli(char **tab, char fp[], char *cli, t_env *i_env)
 {
 	int				bin;
+	int				wit;
 
 	if (!cli || !cli[0])
 		return (-1);
@@ -40,8 +41,9 @@ int					filter_cli(char **tab, char fp[], char *cli, t_env *i_env)
 	ft_bzero(fp, MAXPATHLEN * 2 + 1);
 	bin = builtin_chk(tab, cli, i_env) ? 1 : 0;
 	if (!bin)
-		if (getpath(tab[0], i_env, fp) < 0)
+		if ((wit = getpath(tab[0], i_env, fp)) < 0)
 		{
+			wit == -2 ? 0 :
 			pcat("minishell: ", tab[0], ": Cannot execute command", 1);
 			return (-1);
 		}

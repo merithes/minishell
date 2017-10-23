@@ -6,7 +6,7 @@
 #    By: vboivin <marvin42.fr>                     +#+   +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/17 14:50:04 by vboivin           #+#    #+#              #
-#    Updated: 2017/10/21 06:44:15 by vboivin          ###   ########.fr        #
+#    Updated: 2017/10/23 06:23:46 by vboivin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBFT		= -Llibft -lft
 
 SRCS 		=	main.c env.c init_env.c manage_env.c prompt.c command.c		\
 				bin_nenv.c bin_env.c edit_var.c interpret_env_cli.c			\
-				error_handler.c
+				error_handler.c free_list.c splitter.c
 DIR_SRC		= $(addprefix $(SRCPATH)/, $(SRCS))
 SRCPATH		= src
 

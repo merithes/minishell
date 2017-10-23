@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/04 14:49:03 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 02:02:23 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 04:54:32 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void				*ft_memset(void *str, int chr, size_t bytes_to_set);
 void				*ft_memalloc(size_t size);
 void				ft_memdel(void **ap);
 char				*free_join(char *s1, char *s2);
-char				*ft_realloc(char *inp, int qty);
+void				*ft_realloc(void *inp, int qty);
 
 char				*ft_strcat(char *dest, const char *src);
 char				*ft_strncat(char *dest, const char *src, size_t limit);

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:37 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 19:56:01 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 06:30:35 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void			chk_exist(char *cmd, char **path, char *fullpath)
 	int				i;
 
 	i = 0;
-	if (!cmd || !fullpath || !path)
+	if (!cmd || !fullpath || !path || !ft_strcmp("\\", cmd))
 	{
 		ft_bzero(fullpath, MAXPATHLEN + 1);
 		return ;
@@ -56,8 +56,9 @@ int					getpath(char *cmd, t_env *env, char *fullpath)
 	ft_bzero(fullpath, MAXPATHLEN + 1);
 	if ((i = -1) && !lstat(cmd, &statf) && ft_strrchr(cmd, '/'))
 	{
-		ft_strcpy(fullpath, cmd);
-		return (0);
+		!S_ISDIR(statf.st_mode) ? ft_strcpy(fullpath, cmd) :
+			pcat("minishell: ", cmd, ": is a directory.", 1);
+		return S_ISDIR(statf.st_mode) ? -1 : 0;
 	}
 	if (!(cursor = get_env_var("PATH", env)))
 	{

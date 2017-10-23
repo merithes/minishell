@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/09 17:16:41 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 06:07:22 by vboivin          ###   ########.fr       */
+/*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
+/*   Updated: 2017/10/23 01:12:34 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "hmini.h"
 
-void			*ft_realloc(void *inp_o, int qty)
+void				free_list(t_env *root)
 {
-	int			i;
-	char		*inp;
-	char		*outp;
+	t_env			*cursor;
+	t_env			*tmp;
 
-	inp = (char *)inp_o;
-	if (!(outp = ft_strnew(qty)))
-		return (NULL);
-	i = -1;
-	while (++i < qty)
-		outp[i] = inp[i];
-	free(inp);
-	return (outp);
+	if (!root)
+		return ;
+	tmp = NULL;
+	cursor = root;
+	while (cursor || tmp)
+	{
+		tmp ? free(tmp) : 0;
+		if (!cursor)
+			break ;
+		cursor->name ? free(cursor->name) : 0;
+		cursor->cont ? free(cursor->cont) : 0;
+		cursor->full ? free(cursor->full) : 0;
+		tmp = cursor;
+		cursor = cursor->next;
+	}
 }

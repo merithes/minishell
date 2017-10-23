@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:37 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 06:30:35 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 07:28:36 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int					getpath(char *cmd, t_env *env, char *fullpath)
 	{
 		!S_ISDIR(statf.st_mode) ? ft_strcpy(fullpath, cmd) :
 			pcat("minishell: ", cmd, ": is a directory.", 1);
-		return S_ISDIR(statf.st_mode) ? -1 : 0;
+		return (S_ISDIR(statf.st_mode) ? -1 : 0);
 	}
 	if (!(cursor = get_env_var("PATH", env)))
 	{
@@ -72,8 +72,7 @@ int					getpath(char *cmd, t_env *env, char *fullpath)
 	chk_exist(cmd, content, fullpath);
 	while (content[++i])
 		free(content[i]);
-	free(content);
-	return (0);
+	return ((int)return_free(content));
 }
 
 int					builtin_chk(char **tab, char *cmd, t_env *env)

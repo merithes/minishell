@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 06:50:58 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 07:33:07 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int					filter_cli(char **tab, char fp[], char *cli, t_env *i_env)
 		derror(tab[0], tab[1], NULL, 0);
 	else if (fp[0] && !bin)
 		edit_specific_var(i_env, "_", fp);
-	return (bin);	
+	return (bin);
 }
 
 void				exec_cli(char *cli, t_env *i_env)

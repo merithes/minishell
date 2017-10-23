@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 04:06:33 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 06:23:12 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 07:33:33 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,16 @@ int					get_wd(char *inp, char **to_set)
 		if (inp[i] == '\\')
 			i += 2;
 		else if (inp[i] == '"')
-			while (inp[++i] != '"')
-				;
-		if (inp[i] 	<= 32)
+		{
+			i++;
+			while (inp[i] != '"')
+			{
+				if (inp[i] == '\\')
+					i++;
+				i++;
+			}
+		}
+		if (inp[i] <= 32)
 			break ;
 	}
 	*to_set = create_wd(inp, i);

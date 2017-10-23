@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:27:40 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/21 02:17:33 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 07:24:53 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ char				*line_env_interpret(char *inp, t_env *env)
 	ft_bzero(i, sizeof(int) * 4);
 	while (inp[i[0] + i[3]])
 	{
-		while (inp[i[0] + i[3]] && inp[i[0] + i[3]] == '"')
-			i[3]++;
 		if (inp[i[0] + i[3]] != '$')
 			chars[0][i[0] + i[1]] = inp[i[0] + i[3]];
 		else

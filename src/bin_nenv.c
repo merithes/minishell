@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:29 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/22 04:05:42 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 07:32:38 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void				repath(char **tab, t_env *env, char fp[])
 {
 	t_env			*cursor;
 
-	ft_bzero(fp, MPL + 1);
 	if (!tab[1] || ft_strrchr(tab[1], '~'))
 	{
 		if (!(cursor = get_env_var("HOME", env)))
@@ -27,7 +26,6 @@ void				repath(char **tab, t_env *env, char fp[])
 		ft_strcat(fp, cursor->cont);
 		if (tab[1] && tab[1][1])
 			ft_strcat(fp, tab[1] + 1);
-		pcat(fp, NULL, NULL, 1);
 	}
 	else if (!ft_strcmp(tab[1], "-"))
 	{
@@ -50,6 +48,7 @@ void				cd_bin(char **tab, t_env *env)
 	char			*cwd;
 	char			chd[MAXPATHLEN + 1];
 
+	ft_bzero(chd, MPL + 1);
 	repath(tab, env, chd);
 	if (chdir(chd) < 0)
 		derror("cd", chd, NULL, 1);
@@ -72,20 +71,9 @@ void				echo_bin(char **tab, char *cmd, t_env *env)
 	if (!tab || !cmd || !env)
 		return ;
 	cmd = skip_cmd(cmd, 5);
-	while (*cmd)
-	{
-		i = 0;
-		if (*cmd == '\\')
-		{
-			cmd++;
-			if (*cmd == 'n' && ++i)
-				write(1, "\n", 1);
-			else if (*cmd == 't' && ++i)
-				write(1, "\t", 1);
-			cmd += i;
-		}
-		write(1, cmd++, 1);
-	}
+	i = 0;
+	while (tab[++i])
+		ft_putstr(tab[i]);
 	write(1, "\n", 1);
 }
 

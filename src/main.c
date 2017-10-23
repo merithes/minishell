@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 07:33:07 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/23 07:51:12 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int					filter_cli(char **tab, char fp[], char *cli, t_env *i_env)
 	bin = builtin_chk(tab, cli, i_env) ? 1 : 0;
 	if (!bin)
 		if (getpath(tab[0], i_env, fp) < 0)
+		{
+			pcat("minishell: ", tab[0], ": Cannot execute command", 1);
 			return (-1);
+		}
 	if (!fp[0] && !bin)
 		derror(tab[0], tab[1], NULL, 0);
 	else if (fp[0] && !bin)

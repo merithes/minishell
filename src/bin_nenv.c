@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:29 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 07:32:38 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/24 17:00:14 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ void				echo_bin(char **tab, char *cmd, t_env *env)
 		return ;
 	cmd = skip_cmd(cmd, 5);
 	i = 0;
-	while (tab[++i])
-		ft_putstr(tab[i]);
+	if (ft_strchr(cmd, '"'))
+		while (tab[++i])
+			ft_putstr(tab[i]);
+	else
+		ft_putstr(cmd);
 	write(1, "\n", 1);
 }
 

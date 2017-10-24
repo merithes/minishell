@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:27:29 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 06:50:38 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/24 17:12:33 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void				derror(char *cmd, char *path, char *specs, int status)
 		if (!path || (accessd = access(path, F_OK) != 0))
 			ft_putstr(NSFOD);
 		else if ((accessd = access(path, X_OK)) != 0)
-			write(1, " Permissions denied\n", 19);
+			ft_putstr(" Permissions denied\n");
 		else if (S_ISLNK(statf.st_mode))
-			write(1, " Link loop\n", 11);
+			ft_putstr(" Link loop\n");
 		else
-			write(1, " Cannot execute command\n", 24);
+			ft_putstr(" Cannot execute command\n");
 	}
 	else
 		write(1, " Cannot execute command\n", 24);

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/24 17:12:24 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/27 00:03:14 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static t_env		*g_backup_env;
 void				signal_newline(int inp)
 {
 	(void)inp;
-	write(0, "\n", 1);
+	write(1, "\n", 1);
 }
 
 void				signal_handler(int inp)
 {
 	(void)inp;
-	write(0, "\n", 1);
+	write(1, "\n", 1);
 	write_prompt(g_backup_env);
 }
 
@@ -45,7 +45,7 @@ int					filter_cli(char **tab, char fp[], char *cli, t_env *i_env)
 		if ((!(ft_strcmp("\\", cli))) || (wit = getpath(tab[0], i_env, fp)) < 0)
 		{
 			wit == -2 ? 0 :
-			pcat("minishell: ", tab[0], ": Cannot execute command", 1);
+			pcat("minishell: ", NULL, ": Cannot execute command1", 1);
 			return (-1);
 		}
 	if (!fp[0] && !bin)
@@ -95,14 +95,14 @@ int					main(int ac, char **av, char **env_o)
 	g_backup_env = env;
 	write_prompt(env);
 	signal(SIGINT, &signal_handler);
-	while (get_next_line(0, &cli))
+	while (get_next_line(0, &cli) > 0)
 	{
 		cli = line_env_interpret(cli, env);
 		exec_cli(cli, env);
 		signal(SIGINT, &signal_handler);
 		write_prompt(env);
-		free(cli);
+		cli ? free(cli) : 0;
 	}
-	write(1, "\n", 1);
+	ft_putstr("\rEnd of stream.                                            \n");
 	return (0);
 }

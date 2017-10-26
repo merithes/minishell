@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 04:06:33 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/26 11:03:24 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/26 22:24:57 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int					get_wd(char *inp, char **to_set)
 		if (inp[i] <= 32)
 			break ;
 	}
-	*to_set = create_wd(inp, i);
+	if (i > 0)
+		*to_set = create_wd(inp, i);
 	return (i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:28:37 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 13:03:09 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/26 23:29:57 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void			chk_exist(char *cmd, char **path, char *fullpath)
 	int				i;
 
 	i = 0;
-	if (!cmd || !fullpath || !path || !path[0] || !ft_strcmp("\\", cmd))
+	if (!cmd || !fullpath || !path || !path[0] || !ft_strcmp("\\", cmd)
+			|| ft_strlen(cmd) > MAXPATHLEN)
 	{
 		ft_bzero(fullpath, MAXPATHLEN + 1);
 		return ;

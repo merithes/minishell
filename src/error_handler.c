@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/21 01:27:29 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/24 17:12:33 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/27 00:04:11 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void				derror(char *cmd, char *path, char *specs, int status)
 	struct stat		statf;
 
 	cmd ?
-	pcat("minishell: ", cmd, ":", 0) :
-	pcat("minishell: ", cmd, NULL, 0);
+	pcat("minishell1: ", cmd, ":", 0) :
+	pcat("minishell2: ", NULL, NULL, 0);
 	specs ? ft_putstr(specs) : NULL;
 	if (status || path)
 	{

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 23:20:15 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/22 06:12:21 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/27 00:40:00 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,20 @@ t_env				*init_env(void)
 	ft_putstr(N_ENV);
 	if (!(temp = getcwd(NULL, 0)))
 		return (NULL);
-	(!(env = create_root_var())) ? ft_push_error(1) : 0;
+	(!(env = create_root_var())) ? exit(-1) : 0;
 	(!(env->next = creat_var("PWD", temp, NULL, MTWO))) ?
-		ft_push_error(1) : 0;
+		exit(-1) : 0;
 	cursor = env->next;
 	(!(cursor->next = creat_var("PS1", DEF_PROMPT, NULL, 0))) ?
-		ft_push_error(1) : (void)(cursor = cursor->next);
+		exit(-1) : (void)(cursor = cursor->next);
 	(!(cursor->next = creat_var("OLDPWD", NULL, env->full, 0))) ?
-		ft_push_error(1) : (void)(cursor = cursor->next);
+		exit(-1) : (void)(cursor = cursor->next);
 	(!(cursor->next = creat_var("SHLVL", "1", 0, 0))) ?
-		ft_push_error(1) : (void)(cursor = cursor->next);
+		exit(-1) : (void)(cursor = cursor->next);
 	(!(cursor->next = creat_var("PATH", DEF_PATH, 0, 0))) ?
-		ft_push_error(1) : (void)(cursor = cursor->next);
+		exit(-1) : (void)(cursor = cursor->next);
 	(!(cursor->next = creat_var("PS1", DEF_PROMPT, 0, 0))) ?
-		ft_push_error(1) : 0;
+		exit(-1) : 0;
 	return (env);
 }
 

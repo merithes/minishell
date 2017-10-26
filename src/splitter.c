@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 04:06:33 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 12:51:40 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/26 11:03:24 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ char				**splitter(char *inp)
 		return (NULL);
 	ft_bzero(outp, sizeof(char *) * 6);
 	if ((quotes_count(inp) % 2))
+	{
+		ft_putstr("Invalid amout of quotes.\n");
 		return (NULL);
+	}
 	while (inp[i])
 	{
 		while (inp[i] && inp[i] <= 32)

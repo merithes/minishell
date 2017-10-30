@@ -6,7 +6,7 @@
 #    By: vboivin <marvin42.fr>                     +#+   +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/17 14:50:04 by vboivin           #+#    #+#              #
-#    Updated: 2017/10/23 06:23:46 by vboivin          ###   ########.fr        #
+#    Updated: 2017/10/30 21:31:04 by vboivin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,11 +37,12 @@ $(NAME): $(DIR_OBJ)
 	@printf "                                                         \r"
 	@printf "main compilation:\tdone\n"
 	@make -C libft
+	@echo "vboivin" > auteur
 	@$(COMP) $(DIR_OBJ) -o $(NAME) $(INCMAC) $(LIBFT) $(FLAGS)
 
 clean:
 	@make clean -C libft
-	@rm -rf $(OBJ)
+	@rm -rf $(DIR_OBJ)
 
 fclean: rmtest
 	@make fclean -C libft

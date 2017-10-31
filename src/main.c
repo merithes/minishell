@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 20:20:18 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/27 00:03:14 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/31 03:22:45 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int					filter_cli(char **tab, char fp[], char *cli, t_env *i_env)
 		if ((!(ft_strcmp("\\", cli))) || (wit = getpath(tab[0], i_env, fp)) < 0)
 		{
 			wit == -2 ? 0 :
-			pcat("minishell: ", NULL, ": Cannot execute command1", 1);
+			pcat("minishell: ", NULL, ": Cannot execute command", 1);
 			return (-1);
 		}
 	if (!fp[0] && !bin)
@@ -74,11 +74,12 @@ void				exec_cli(char *cli, t_env *i_env)
 		signal(SIGINT, SIG_DFL);
 		env = rmk_env(i_env);
 		execve(fullpath, tab, env);
-		pcat("minishell: ", fullpath, ": Permission denied.", 1);
+		access(fullpath, X_OK) ?
+		pcat("minishell: ", fullpath, ": Permission denied.", 1) :
+		pcat("minishell: ", fullpath, NEOB, 1);
 		exit(0);
 	}
-	else if (!bin && fullpath[0])
-		signal(SIGINT, &signal_newline);
+	(!bin && fullpath[0]) ? signal(SIGINT, &signal_newline) : 0;
 	wait(NULL);
 	free_rec_char(tab);
 }

@@ -6,7 +6,7 @@
 /*   By: vboivin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/26 21:25:52 by vboivin           #+#    #+#             */
-/*   Updated: 2017/10/23 06:23:35 by vboivin          ###   ########.fr       */
+/*   Updated: 2017/10/31 03:20:17 by vboivin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define DEF_PATH "/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin"
 
 # define NSFOD " No such file or directory\n"
+# define NEOB " File doesn't exist or isn't a binary"
 # define NSC " No such command\n"
 
 /*
